@@ -1,7 +1,7 @@
 #!/bin/bash -ue
 
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
-source "${OPENSHIFT_SCS_DIR}/lib/SHOUTinterface"
+source "${OPENSHIFT_SCS_DIR}/lib/shoutinterface"
 
 env_dir="${OPENSHIFT_SCS_DIR}/env"
 

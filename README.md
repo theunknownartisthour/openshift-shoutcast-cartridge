@@ -22,7 +22,7 @@ From here:
 ----------
 
 --------------------------------------------------------------------------------------------------------
-> __rhc__ app-create __app-name__ https://github.com/theunknownartisthour/openshift-shoutcast-cartridge.git
+> __rhc__ app-create __app-name__ https://raw.githubusercontent.com/theunknownartisthour/openshift-shoutcast-cartridge/master/metadata/manifest.yml
 --------------------------------------------------------------------------------------------------------
 
 Approach to scaling:

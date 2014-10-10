@@ -1,0 +1,68 @@
+#!/bin/bash -ue
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+source "${OPENSHIFT_SCS_DIR}/lib/shoutinterface"
+
+env_dir="${OPENSHIFT_SCS_DIR}/env"
+#force insert this env var into place
+hap_dir="${OPENSHIFT_HOMEDIR}/haproxy/env"
+topenv_dir="${OPENSHIFT_HOMEDIR}/env"
+
+adminusername=$(generate_username)
+adminpassword=$(generate_password)
+userpassword=$(generate_password)
+adminstreampass="mainstream"
+streampass="main"
+
+srcurl="${OPENSHIFT_GEAR_UUID}-${OPENSHIFT_GEAR_NAME}.rhcloud.com"
+
+set_env_var 'OPENSHIFT_SCS_ADMIN_USERNAME' "$adminusername" $env_dir
+set_env_var 'OPENSHIFT_SCS_ADMIN_PASSWORD' "$adminpassword" $env_dir
+set_env_var 'OPENSHIFT_SCS_USER_PASSWORD' "$userpassword" $env_dir
+set_env_var 'OPENSHIFT_SCS_CONNECT' "$srcurl" $env_dir
+set_env_var 'OPENSHIFT_SCS_PID' "${OPENSHIFT_REPO_DIR}/diy/stream.pid" $env_dir
+
+#set_env_var 'HAPROXY_CARTRIDGE_HTTPCHK_URI' "/index.html" $topenv_dir
+
+#set_env_var 'OPENSHIFT_SCS_CONF_ADMINPASSWORD' "$adminpassword" $env_dir
+#set_env_var 'OPENSHIFT_SCS_CONF_PASSWORD' "$userpassword" $env_dir
+
+#set_env_var 'OPENSHIFT_SCS_CONF_STREAMADMINPASSWORD_1' "mainstream" $env_dir
+#set_env_var 'OPENSHIFT_SCS_CONF_STREAMPASSWORD_1' "main" $env_dir
+#set_env_var 'OPENSHIFT_SCS_CONF_STREAMID' 1 $env_dir
+#set_env_var 'OPENSHIFT_SCS_CONF_PUBLICPORT' 80 $env_dir
+#set_env_var 'OPENSHIFT_SCS_CONF_PORTLEGACY' 0 $env_dir
+#set_env_var 'OPENSHIFT_SCS_CONF_SCRIP' "any" $env_dir
+
+set_shoutcast_option 'adminpassword' "$adminpassword"
+set_shoutcast_option 'password' "$userpassword"
+
+set_shoutcast_option 'streamadminpassword_1' $adminstreampass
+set_shoutcast_option 'streamid_1' 1
+set_shoutcast_option 'streampassword_1' $streampass
+set_shoutcast_option 'publicport' 80
+set_shoutcast_option 'portlegacy' 0
+set_shoutcast_option 'srcip' "any"
+
+set_info 'SHOUTCAST_CONF' "${OPENSHIFT_REPO_DIR}/diy/shoutconfig.conf"
+
+client_result ""
+client_result "SCS: Shoutcast Scaling Service Installing, Please Keep This Information Safe"
+client_result ""
+client_result "       Root User: $adminusername"
+client_result "   Root Password: $adminpassword"
+client_result "     Stream Id 1: 1"
+client_result "Stream Id 1 Pass: $streampass"
+client_result "Stream Id 1 Admn: $adminstreampass"
+client_result "    Streamto_url: $srcurl"
+client_result "     Clients_url: $OPENSHIFT_APP_DNS"
+client_result ""
+#print_shoutcast_options
+#client_result "$OPENSHIFT_SCS_ENV_CONF"
+
+cart_props 'connection_url=$srcurl'
+cart_props "username=$adminusername"
+cart_props "password=$adminpassword"
+
+#cart_props "streamto_url=$srcurl"
+#cart_props "clients_url=$OPENSHIFT_APP_DNS"

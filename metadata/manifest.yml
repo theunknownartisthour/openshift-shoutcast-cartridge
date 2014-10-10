@@ -1,0 +1,58 @@
+---
+Name: scs
+Cartridge-Short-Name: SCS
+Display-Name: Shoutcast Scale 0.1
+Description: A Scaling Shoutcast v2.2.2 Distribution on Openshift
+Version: '0.1'
+License: ASL 2.0
+License-Url: http://www.apache.org/licenses/LICENSE-2.0.txt
+Cartridge-Version: 0.0.10
+Cartridge-Vendor: theunknownartisthour
+Vendor: theunknownartisthour
+Categories:
+- web_framework
+- experimental
+Website: http://www.theunknownartisthour.com
+Help-Topics:
+  Getting Started: http://stackoverflow.com/questions/25460900/creating-a-scalable-shoutcast-solution-on-openshift
+Provides:
+- Shoutcast-2.2.2
+- Shoutcast
+Publishes: 
+Subscribes:
+  set-env:
+    Type: ENV:*
+    Required: false
+Scaling:
+  Min: 1
+  Max: -1
+Group-Overrides:
+- components:
+  - web-proxy
+Endpoints:
+- Private-IP-Name: IP
+  Private-Port-Name: PORT
+  Private-Port: 8080
+  Public-Port-Name: PROXY_PORT
+  Protocols:
+  - http
+  - ws
+  Options:
+    primary: true
+  Mappings:
+  - Frontend: ''
+    Backend: ''
+    Options:
+      websocket: true
+- Private-IP-Name: FIRST_IP
+  Private-Port-Name: FIRST_PORT
+  Private-Port: 9000
+  Protocols:
+  - http
+  - ws
+  Mappings:
+  - Frontend: '/shoutcast'
+    Backend: ''
+    Options:
+      websocket: true
+Source-Url: https://github.com/theunknownartisthour/openshift-shoutcast-cartridge.git

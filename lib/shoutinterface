@@ -1,0 +1,26 @@
+#!/bin/bash
+
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+env_dir="${OPENSHIFT_SCS_DIR}/env"
+
+function set_shoutcast_option ()
+{
+	var=${1^^}
+	name="OPENSHIFT_SCS_CONF_$var"
+	set_env_var $name $2 $env_dir 
+}
+
+function set_info ()
+{
+	var=${1^^}
+	name="OPENSHIFT_SCS_$var"
+	set_env_var $name $2 $env_dir 
+}
+
+function print_shoutcast_options ()
+{
+	#cat $env_dir/OPENSHIFT_SCS_CONF* >> ${OPENSHIFT_SCS_DIR}/diy/env.conf
+	#set_info "ENV_CONF" $(cat $env_dir/OPENSHIFT_SCS_CONF* >> "${OPENSHIFT_DATA_DIR}/env.conf")
+	#return ${OPENSHIFT_SCS_ENV_CONF}
+}

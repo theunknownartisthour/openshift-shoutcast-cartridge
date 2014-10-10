@@ -1,0 +1,2 @@
+#!/bin/bash -e
+echo http://${OPENSHIFT_GEAR_DNS}/index.html

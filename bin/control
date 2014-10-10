@@ -1,0 +1,193 @@
+#!/bin/bash
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+source "${OPENSHIFT_SCS_DIR}/lib/shoutinterface"
+
+env_dir="${OPENSHIFT_SCS_DIR}/env"
+
+STOPTIMEOUT=10
+FMT="%a %b %d %Y %H:%M:%S GMT%z (%Z)"
+
+# echo "my value" > env/MY_VAR
+
+function read_dom () {
+    local IFS=\>
+    read -d \< ENTITY CONTENT
+}
+	
+function is_shoutcast_running() {
+#create a stats file and test if server is up and running
+	if ! -f ${OPENSHIFT_REPO_DIR}/diy/stream.pid ; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+function save_about_gear() {
+	#up count or create 
+	#CONTENT = $3
+	#if ! -f ${OPENSHIFT_DATA_DIR}/gear/$1/$2.txt ; then
+	#echo "${CONTENT}" > ${OPENSHIFT_DATA_DIR}/gear/$1/$2.txt
+	GEARNUM=$(get_count)
+	set_info "GEAR_${GEARNUM}_CONNECTURL" "${OPENSHIFT_GEAR_UUID}-${OPENSHIFT_GEAR_NAME}.rhcloud.com"
+	#fi
+}
+
+# not sure what client_result does...
+function status() {
+    if is_shoutcast_running ; then
+        client_result "Application is running"
+    else
+        client_result "Application is not running"
+    fi
+}
+
+function start() {
+#SHOUTCAST_CONF = ${OPENSHIFT_REPO_DIR}/diy/shoutconfig.conf
+SHOUTCAST_CONF=${OPENSHIFT_SCS_SHOUTCAST_CONF}
+
+print_shoutcast_options
+
+#default config for starting up
+read -d '' FileContent << "ENDREAD"
+adminpassword=adminpass
+password=pass
+maxuser=64
+publicserver=default
+requirestreamconfigs=1
+streamadminpassword_1=mainstream
+streamid_1=1
+streampassword_1=main
+publicport=80
+portlegacy=0
+srcip=any
+
+ENDREAD
+	
+	if ! -f ${OPENSHIFT_REPO_DIR}/diy/mode.txt ; then
+		echo "NORMAL" > ${OPENSHIFT_REPO_DIR}/diy/mode.txt
+	fi
+	
+	SERVER_TYPE="$(<${OPENSHIFT_REPO_DIR}/diy/mode.txt)"
+	
+	if ! -f ${OPENSHIFT_REPO_DIR}/diy/settings.txt ; then
+		#default for starting up properly
+		echo "${FileContent}" > ${OPENSHIFT_REPO_DIR}/diy/settings.txt
+		echo "portbase=${OPENSHIFT_SCS_PORT}" >>${OPENSHIFT_REPO_DIR}/diy/settings.txt
+		echo "destip=${OPENSHIFT_SCS_IP}" >>${OPENSHIFT_REPO_DIR}/diy/settings.txt
+		echo "publicip=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_REPO_DIR}/diy/settings.txt
+	fi
+	
+	FileContent="$(<${OPENSHIFT_REPO_DIR}/diy/settings.txt)"
+
+	# ${OPENSHIFT_SCS_IP}
+	save_about_gear get_count proxy ${OPENSHIFT_SCS_PROXY_PORT}
+	
+	if ! -f ${OPENSHIFT_REPO_DIR}/diy/sc_NORMAL.conf ; then
+		echo "${FileContent}" >${OPENSHIFT_REPO_DIR}/diy/sc_NORMAL.conf
+		echo "publicip=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_REPO_DIR}/diy/sc_NORMAL.conf
+	fi
+	
+	#All gears have a relay on port 8080 connecting to /shoutcast which should be the main server
+	if ! -f ${OPENSHIFT_REPO_DIR}/diy/sc_RELAY.conf ; then
+		echo "${FileContent}" >${OPENSHIFT_REPO_DIR}/diy/sc_RELAY.conf
+		echo "relayserver=${OPENSHIFT_APP_DNS}/shoutcast" >>${OPENSHIFT_REPO_DIR}/diy/sc_RELAY.conf
+		echo "relayport=80" >>${OPENSHIFT_REPO_DIR}/diy/sc_RELAY.conf
+		
+	fi
+	
+	if ! -f ${OPENSHIFT_REPO_DIR}/diy/sc_RELAYONLY.conf ; then
+		echo "${FileContent}" >${OPENSHIFT_REPO_DIR}/diy/sc_RELAYONLY.conf
+		echo "relayserver=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_REPO_DIR}/diy/sc_RELAYONLY.conf
+		echo "relayport=80" >>${OPENSHIFT_REPO_DIR}/diy/sc_RELAYONLY.conf
+	fi
+
+#copy over the config to the new file
+cp ${OPENSHIFT_REPO_DIR}/diy/sc_${SERVER_TYPE}.conf ${SHOUTCAST_CONF}
+#run the server
+#nohup ${OPENSHIFT_REPO_DIR}/diy/sc_serv ${SHOUTCAST_CONF} > /dev/null 2>&1 &
+nohup ${OPENSHIFT_REPO_DIR}/diy/sc_serv ${SHOUTCAST_CONF} > /dev/null 2>&1 &
+ps -ef | grep sc_serv | grep -v grep>jobline
+job=`awk '{ print $2 }' jobline`
+echo "$job" >${OPENSHIFT_REPO_DIR}/diy/stream.pid
+rm -f jobline
+client_result "PID $job copied to stream.pid Shoutcast has Started."
+}
+
+#add a relay 
+function scale-up() {
+	start
+}
+#find least used gear and kill it
+function scale-down() {
+	echo
+}
+
+function stop() {
+# The logic to stop your application should be put in this script.
+#if [ -z "$(ps -ef | grep testrubyserver.rb | grep -v grep)" ]
+#then
+#    client_result "Application is already stopped"
+#else
+#    kill `ps -ef | grep testrubyserver.rb | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
+#fi
+
+if [ -z "$(ps -ef | grep sc_serv | grep -v grep)" ] ; then
+    client_result "Application is already stopped"
+else
+	kill `ps -ef | grep sc_serv | grep -v grep | awk '{ print $2 }'` > /dev/null 2>&1
+	client_result "sc_serv stopped"
+fi
+}
+
+function restart() {
+	stop
+	start
+}
+
+function build() {
+    echo
+}
+
+function post-deploy() {
+    echo
+}
+
+function pre-build() {
+    echo
+}
+#clean out logs
+function tidy() {
+  client_message "Emptying Log Dir: $OPENSHIFT_SCS_DIR/logs"
+  shopt -s dotglob
+  rm -rf $OPENSHIFT_SCS_DIR/logs/*
+  rm -rf $OPENSHIFT_SCS_DIR/tmp/*
+}
+
+#
+#  main():
+#
+
+# Ensure arguments.
+if ! [ $# -eq 1 ]; then
+    echo "Usage: $0 [start|restart|graceful|graceful-stop|stop|status]"
+    exit 1
+fi
+
+# Source utility functions.
+source $OPENSHIFT_CARTRIDGE_SDK_BASH
+
+# Handle commands.
+case "$1" in
+    start)               start       ;;
+    restart|graceful)    restart     ;;
+    graceful-stop|stop)  stop        ;;
+    status)              status      ;;
+    build)               build       ;;
+    pre-build)           pre-build   ;;
+    post-deploy)         post-deploy ;;
+    tidy)                tidy        ;;
+	scale-up)            scale-up    ;;
+	scale-down)          scale-down  ;;
+    *) exit 0;
+esac

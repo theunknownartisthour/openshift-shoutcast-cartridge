@@ -1,4 +1,3 @@
----
 Name: scs
 Cartridge-Short-Name: SCS
 Display-Name: Shoutcast Scale 0.1
@@ -55,4 +54,4 @@ Endpoints:
     Backend: ''
     Options:
       websocket: true
-Source-Url: https://github.com/theunknownartisthour/openshift-shoutcast-cartridge.git
+Source-Url: https://github.com/theunknownartisthour/openshift-shoutcast-cartridge/archive/master.zip

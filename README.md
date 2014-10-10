@@ -11,9 +11,13 @@ Streaming service with (not yet functional) scaling capabilities, simple one lin
 Currently available distributions:
 ----------------------------------
 
-* __rhc__ app-create __app-name__ http://shoutscale-rightoradio.rhcloud.com/manifest/master
+--------------------------------------------------------------------------------------------
+> __rhc__ app-create __app-name__ http://shoutscale-rightoradio.rhcloud.com/manifest/master
+--------------------------------------------------------------------------------------------
 
-* __rhc__ app-create __app-name__ https://github.com/theunknownartisthour/openshift-shoutcast-cartridge
+--------------------------------------------------------------------------------------------------------
+> __rhc__ app-create __app-name__ https://github.com/theunknownartisthour/openshift-shoutcast-cartridge
+--------------------------------------------------------------------------------------------------------
 
 Approach to scaling:
 --------------------
@@ -25,19 +29,25 @@ SHOUTcast.
 
 Relaying:
 ---------
+(TODO!)
+```
 
-* RelayPort=80
-* RelayServer=IP/URL (TODO!)
-
+RelayPort=80
+RelayServer=IP/URL 
+```
 Primary Node:
 -------------
 
-* portbase=${OPENSHIFT_SCS_PORT}
-* destip=${OPENSHIFT_SCS_IP}
-* publicip=${OPENSHIFT_APP_DNS}
+```
+portbase=${OPENSHIFT_SCS_PORT}
+destip=${OPENSHIFT_SCS_IP}
+publicip=${OPENSHIFT_APP_DNS}
+```
 
 The gears are address based on the least amount of connections as determined by the standard
 haproxy which can be added by using the --scaling option to the command lines above.
+SHOUTcast is then up and running listening to the destip:portbase which is externally addressable.
+The publicip option lets SHOUTcast know the proper address to use for .pls .m3u ect... when the server is marked public.
 
 Current issues: 
 ---------------
@@ -48,7 +58,9 @@ Current issues:
 The issue is that this get requests the stream before there's a stream available, SHOUTcast responds with an http error
 haproxy then closes outside connections from reaching the backend. Although not a problem if you just want to port forward into the app
 
-* __rhc__ port-forward __app-name__
+------------------------------------
+> __rhc__ port-forward __app-name__
+------------------------------------
 
 Thank You's:
 ------------

@@ -41,7 +41,6 @@ function status() {
 }
 
 function start() {
-#SHOUTCAST_CONF = ${SHOUTCAST_DIR}/shoutconfig.conf
 SHOUTCAST_CONF=${OPENSHIFT_SCS_SHOUTCAST_CONF}
 
 #default config for starting up
@@ -75,9 +74,6 @@ ENDREAD
 	fi
 	
 	FileContent="$(<${SHOUTCAST_DIR}/settings.txt)"
-
-	# ${OPENSHIFT_SCS_IP}
-	save_about_gear get_count proxy ${OPENSHIFT_SCS_PROXY_PORT}
 	
 	if ! -f ${SHOUTCAST_DIR}/sc_NORMAL.conf ; then
 		echo "${FileContent}" >${SHOUTCAST_DIR}/sc_NORMAL.conf
@@ -101,8 +97,7 @@ ENDREAD
 #copy over the config to the new file
 cp ${SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf ${SHOUTCAST_CONF}
 #run the server
-#nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > /dev/null 2>&1 &
-nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > /dev/null 2>&1 &
+nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > ${OPENSHIFT_LOG_DIR}\shout.log 2>&1 &
 ps -ef | grep sc_serv | grep -v grep>jobline
 job=`awk '{ print $2 }' jobline`
 echo "$job" >${SHOUTCAST_DIR}/stream.pid

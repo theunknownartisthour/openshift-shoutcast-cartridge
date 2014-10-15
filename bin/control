@@ -58,49 +58,49 @@ srcip=any
 
 ENDREAD
 	
-	if ! -f ${SHOUTCAST_DIR}/mode.txt ; then
-		echo "NORMAL" > ${SHOUTCAST_DIR}/mode.txt
+	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt ; then
+		echo "NORMAL" > ${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt
 	fi
 	
-	SERVER_TYPE="$(<${SHOUTCAST_DIR}/mode.txt)"
+	SERVER_TYPE="$(<${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt)"
 	
-	if ! -f ${SHOUTCAST_DIR}/settings.txt ; then
+	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt ; then
 		#default for starting up properly
-		echo "${FileContent}" > ${SHOUTCAST_DIR}/settings.txt
-		echo "portbase=${OPENSHIFT_SCS_PORT}" >>${SHOUTCAST_DIR}/settings.txt
-		echo "destip=${OPENSHIFT_SCS_IP}" >>${SHOUTCAST_DIR}/settings.txt
-		echo "publicip=${OPENSHIFT_APP_DNS}" >>${SHOUTCAST_DIR}/settings.txt
+		echo "${FileContent}" > ${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt
+		echo "portbase=${OPENSHIFT_SCS_PORT}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt
+		echo "destip=${OPENSHIFT_SCS_IP}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt
+		echo "publicip=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt
 	fi
 	
-	FileContent="$(<${SHOUTCAST_DIR}/settings.txt)"
+	FileContent="$(<${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt)"
 	
-	if ! -f ${SHOUTCAST_DIR}/sc_NORMAL.conf ; then
-		echo "${FileContent}" >${SHOUTCAST_DIR}/sc_NORMAL.conf
-		echo "publicip=${OPENSHIFT_APP_DNS}" >>${SHOUTCAST_DIR}/sc_NORMAL.conf
+	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_NORMAL.conf ; then
+		echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_NORMAL.conf
+		echo "publicip=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_NORMAL.conf
 	fi
 	
 	#All gears have a relay on port 8080 connecting to /shoutcast which should be the main server
-	if ! -f ${SHOUTCAST_DIR}/sc_RELAY.conf ; then
-		echo "${FileContent}" >${SHOUTCAST_DIR}/sc_RELAY.conf
-		echo "relayserver=${OPENSHIFT_APP_DNS}/shoutcast" >>${SHOUTCAST_DIR}/sc_RELAY.conf
-		echo "relayport=80" >>${SHOUTCAST_DIR}/sc_RELAY.conf
+	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf ; then
+		echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
+		echo "relayserver=${OPENSHIFT_APP_DNS}/shoutcast" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
+		echo "relayport=80" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
 		
 	fi
 	
-	if ! -f ${SHOUTCAST_DIR}/sc_RELAYONLY.conf ; then
-		echo "${FileContent}" >${SHOUTCAST_DIR}/sc_RELAYONLY.conf
-		echo "relayserver=${OPENSHIFT_APP_DNS}" >>${SHOUTCAST_DIR}/sc_RELAYONLY.conf
-		echo "relayport=80" >>${SHOUTCAST_DIR}/sc_RELAYONLY.conf
+	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAYONLY.conf ; then
+		echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAYONLY.conf
+		echo "relayserver=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAYONLY.conf
+		echo "relayport=80" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAYONLY.conf
 	fi
 
 #copy over the config to the new file
-cp ${SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf ${OPENSHIFT_SCS_SHOUTCAST_CONF}
+cp ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf ${OPENSHIFT_SCS_SHOUTCAST_CONF}
 #run the server
 nohup ${OPENSHIFT_REPO_DIR}/server/sc_serv ${OPENSHIFT_SCS_SHOUTCAST_CONF} > ${OPENSHIFT_LOG_DIR}\shout.log 2>&1 &
 ps -ef | grep sc_serv | grep -v grep>jobline
 job=`awk '{ print $2 }' jobline`
 slog="$(<${OPENSHIFT_LOG_DIR}\shout.log)"
-echo "$job" >${SHOUTCAST_DIR}/stream.pid
+echo "$job" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/stream.pid
 rm -f jobline
 client_result "PID $job copied to stream.pid Shoutcast has Started: $slog"
 }

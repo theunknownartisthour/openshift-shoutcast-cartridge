@@ -97,7 +97,7 @@ ENDREAD
 #copy over the config to the new file
 cp ${SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf ${SHOUTCAST_CONF}
 #run the server
-nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > ${OPENSHIFT_LOG_DIR}\shout.log 2>&1 &
+nohup ${OPENSHIFT_REPO_DIR}/sc_serv ${SHOUTCAST_CONF} > ${OPENSHIFT_LOG_DIR}\shout.log 2>&1 &
 ps -ef | grep sc_serv | grep -v grep>jobline
 job=`awk '{ print $2 }' jobline`
 echo "$job" >${SHOUTCAST_DIR}/stream.pid

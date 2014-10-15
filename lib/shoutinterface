@@ -18,9 +18,50 @@ function set_info ()
 	set_env_var $name $2 $env_dir 
 }
 
-function print_shoutcast_options ()
+function shoutcast_conf_exists ()
 {
-	#cat $env_dir/OPENSHIFT_SCS_CONF* >> ${OPENSHIFT_SCS_DIR}/diy/env.conf
-	#set_info "ENV_CONF" $(cat $env_dir/OPENSHIFT_SCS_CONF* >> "${OPENSHIFT_DATA_DIR}/env.conf")
-	#return ${OPENSHIFT_SCS_ENV_CONF}
+	varopt2=${1^^}
+	confname="CONFIG_${varopt2}"
+	
+	if ! -f "${OPENSHIFT_DATA_DIR}/sc_${confname}.conf" ; then
+		return 0
+	else
+		return 1
+	fi
+}
+
+function add_env_conf ()
+{
+	var=${1}
+	varopt=${1^^}
+	
+	name="OPENSHIFT_SCS_CONF_${varopt}"
+	
+	varopt2=${2^^}
+	confname="CONFIG_$varopt2"
+	
+	if ! -f "${OPENSHIFT_DATA_DIR}/sc_${confname}.conf" ; then
+		create_shoutcast_conf $varopt2
+	fi
+	
+	echo "$var=${$name}" >> "${OPENSHIFT_DATA_DIR}/sc_${confname}.conf"
+}
+
+function add_shoutcast_conf ()
+{
+	varopt2=${2^^}
+	confname="CONFIG_$varopt2"
+	
+	if ! -f "${OPENSHIFT_DATA_DIR}/sc_${confname}.conf" ; then
+		create_shoutcast_conf $varopt2
+	fi
+	
+	echo "${1}" >> "${OPENSHIFT_DATA_DIR}/sc_${confname}.conf"
+}
+
+function create_shoutcast_conf ()
+{
+	varopt=${1^^}
+	name="CONFIG_$varopt"
+	echo "\n" > "${OPENSHIFT_DATA_DIR}/sc_$name.conf"
 }

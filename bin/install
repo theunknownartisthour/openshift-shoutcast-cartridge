@@ -15,7 +15,7 @@ streampass=$(generate_password)
 
 srcurl="${OPENSHIFT_GEAR_UUID}-${OPENSHIFT_GEAR_NAME}.rhcloud.com"
 
-scsfolder="${OPENSHIFT_REPO_DIR}/diy/"
+scsfolder="${OPENSHIFT_REPO_DIR}/"
 
 set_env_var 'OPENSHIFT_SCS_ADMIN_USERNAME' "$adminusername" $env_dir
 set_env_var 'OPENSHIFT_SCS_ADMIN_PASSWORD' "$adminpassword" $env_dir

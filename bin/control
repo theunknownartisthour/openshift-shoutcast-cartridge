@@ -99,9 +99,10 @@ cp ${SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf ${OPENSHIFT_SCS_SHOUTCAST_CONF}
 nohup ${OPENSHIFT_REPO_DIR}/server/sc_serv ${OPENSHIFT_SCS_SHOUTCAST_CONF} > ${OPENSHIFT_LOG_DIR}\shout.log 2>&1 &
 ps -ef | grep sc_serv | grep -v grep>jobline
 job=`awk '{ print $2 }' jobline`
+slog="$(<${OPENSHIFT_LOG_DIR}\shout.log)"
 echo "$job" >${SHOUTCAST_DIR}/stream.pid
 rm -f jobline
-client_result "PID $job copied to stream.pid Shoutcast has Started."
+client_result "PID $job copied to stream.pid Shoutcast has Started: $slog"
 }
 
 #add a relay 

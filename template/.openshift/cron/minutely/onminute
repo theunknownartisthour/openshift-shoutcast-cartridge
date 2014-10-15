@@ -1,0 +1,3 @@
+ #!/bin/bash
+ echo "************ Cronny Started ***************"
+ date >> ${OPENSHIFT_DATA_DIR}/ticktock.log

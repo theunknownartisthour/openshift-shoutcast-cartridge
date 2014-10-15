@@ -79,7 +79,7 @@ ENDREAD
 	fi
 	
 	if ! -f ${SHOUTCAST_DIR}/mode.txt ; then
-		echo "TEST" > ${SHOUTCAST_DIR}/mode.txt
+		echo "NORMAL" > ${SHOUTCAST_DIR}/mode.txt
 	fi
 	
 	SERVER_TYPE="$(<${SHOUTCAST_DIR}/mode.txt)"
@@ -119,14 +119,13 @@ ENDREAD
 	#copy over the config to the new file
 	cp ${OPENSHIFT_DATA_DIR}/sc_CONFIG_${SERVER_TYPE}.conf ${SHOUTCAST_CONF}
 
-	#run the server keep the pid
-	nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > ${OPENSHIFT_LOG_DIR}/shout.log 2>&1 &
+	#run the server keep the pid /dev/null 2>&1 
+	nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > ${OPENSHIFT_LOG_DIR}/shout.log &
 	ps -ef | grep sc_serv | grep -v grep>jobline
 	job=`awk '{ print $2 }' jobline`
 	echo "$job" >${OPENSHIFT_SCS_PID}
 	rm -f jobline
 	client_result "PID $job copied to stream.pid SHOUTcast has Started."
-	tail ${OPENSHIFT_LOG_DIR}/shout.log | client_result
 	
 }
 

@@ -58,6 +58,9 @@ srcip=any
 
 ENDREAD
 	
+        add_env_conf "adminpassword" "TEST"
+        add_env_conf "password" "TEST"
+
 	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt ; then
 		echo "NORMAL" > ${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt
 	fi
@@ -100,9 +103,11 @@ nohup ${OPENSHIFT_REPO_DIR}/server/sc_serv ${OPENSHIFT_SCS_SHOUTCAST_CONF} > ${O
 ps -ef | grep sc_serv | grep -v grep>jobline
 job=`awk '{ print $2 }' jobline`
 slog="$(<${OPENSHIFT_LOG_DIR}\shout.log)"
+conflog=$(print_conf "TEST")
 echo "$job" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/stream.pid
 rm -f jobline
-client_result "PID $job copied to stream.pid Shoutcast has Started: $slog"
+client_result "PID $job copied to stream.pid Shoutcast has Started: \n $slog \n $conflog"
+
 }
 
 #add a relay 

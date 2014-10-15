@@ -44,7 +44,7 @@ function add_env_conf ()
 		create_shoutcast_conf $varopt2
 	fi
 	
-	echo "$var=${$name}" >> "${OPENSHIFT_DATA_DIR}/sc_${confname}.conf"
+	echo "$var=${!name}" >> "${OPENSHIFT_DATA_DIR}/sc_${confname}.conf"
 }
 
 function add_shoutcast_conf ()
@@ -64,4 +64,12 @@ function create_shoutcast_conf ()
 	varopt=${1^^}
 	name="CONFIG_$varopt"
 	echo "\n" > "${OPENSHIFT_DATA_DIR}/sc_$name.conf"
+}
+
+function print_conf ()
+{
+    varopt2=${1^^}
+    confname="CONFIG_$varopt2"
+    filecontent = "$(<${OPENSHIFT_DATA_DIR}/sc_${confname}.conf)"
+    echo $filecontent
 }

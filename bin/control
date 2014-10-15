@@ -60,24 +60,6 @@ srcip=any
 
 ENDREAD
 	
-	
-	if ! shoutcast_conf_exists "TEST" ; then
-		add_env_conf "adminpassword" "TEST"
-		add_env_conf "password" "TEST"
-		add_env_conf "maxuser" "TEST"
-		add_env_conf "publicserver" "TEST"
-		add_env_conf "requirestreamconfigs" "TEST"
-		add_env_conf "streamadminpasssword_1" "TEST"
-		add_env_conf "streamid_1" "TEST"
-		add_env_conf "streampasword_1" "TEST"
-		add_env_conf "publicport" "TEST"
-		add_env_conf "portlegacy" "TEST"
-		add_env_conf "srcip" "TEST"
-		add_shoutcast_conf "portbase=${OPENSHIFT_SCS_PORT}" "TEST"
-		add_shoutcast_conf "destip=${OPENSHIFT_SCS_IP}" "TEST"
-		add_shoutcast_conf "publicip=${OPENSHIFT_APP_DNS}" "TEST"
-	fi
-	
 	if ! -f ${SHOUTCAST_DIR}/mode.txt ; then
 		echo "NORMAL" > ${SHOUTCAST_DIR}/mode.txt
 	fi
@@ -95,38 +77,37 @@ ENDREAD
 	FileContent="$(<${SHOUTCAST_DIR}/settings.txt)"
 
 	# ${OPENSHIFT_SCS_IP}
-	# save_about_gear get_count proxy ${OPENSHIFT_SCS_PROXY_PORT}
+	save_about_gear get_count proxy ${OPENSHIFT_SCS_PROXY_PORT}
 	
-	if ! -f ${OPENSHIFT_DATA_DIR}/sc_CONFIG_NORMAL.conf ; then
-		echo "${FileContent}" >${OPENSHIFT_DATA_DIR}/sc_CONFIG_NORMAL.conf
-		echo "publicip=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_DATA_DIR}/sc_CONFIG_NORMAL.conf
+	if ! -f ${SHOUTCAST_DIR}/sc_NORMAL.conf ; then
+		echo "${FileContent}" >${SHOUTCAST_DIR}/sc_NORMAL.conf
+		echo "publicip=${OPENSHIFT_APP_DNS}" >>${SHOUTCAST_DIR}/sc_NORMAL.conf
 	fi
 	
 	#All gears have a relay on port 8080 connecting to /shoutcast which should be the main server
-	if ! -f ${OPENSHIFT_DATA_DIR}/sc_CONFIG_RELAY.conf ; then
-		echo "${FileContent}" >${OPENSHIFT_DATA_DIR}/sc_CONFIG_RELAY.conf
-		echo "relayserver=${OPENSHIFT_APP_DNS}/shoutcast" >>${OPENSHIFT_DATA_DIR}/sc_CONFIG_RELAY.conf
-		echo "relayport=80" >>${OPENSHIFT_DATA_DIR}/sc_CONFIG_RELAY.conf
+	if ! -f ${SHOUTCAST_DIR}/sc_RELAY.conf ; then
+		echo "${FileContent}" >${SHOUTCAST_DIR}/sc_RELAY.conf
+		echo "relayserver=${OPENSHIFT_APP_DNS}/shoutcast" >>${SHOUTCAST_DIR}/sc_RELAY.conf
+		echo "relayport=80" >>${SHOUTCAST_DIR}/sc_RELAY.conf
 		
 	fi
 	
-	if ! -f ${OPENSHIFT_DATA_DIR}/sc_CONFIG_RELAYONLY.conf ; then
-		echo "${FileContent}" >${OPENSHIFT_DATA_DIR}/sc_CONFIG_RELAYONLY.conf
-		echo "relayserver=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_DATA_DIR}/sc_CONFIG_RELAYONLY.conf
-		echo "relayport=80" >>${OPENSHIFT_DATA_DIR}/sc_CONFIG_RELAYONLY.conf
+	if ! -f ${SHOUTCAST_DIR}/sc_RELAYONLY.conf ; then
+		echo "${FileContent}" >${SHOUTCAST_DIR}/sc_RELAYONLY.conf
+		echo "relayserver=${OPENSHIFT_APP_DNS}" >>${SHOUTCAST_DIR}/sc_RELAYONLY.conf
+		echo "relayport=80" >>${SHOUTCAST_DIR}/sc_RELAYONLY.conf
 	fi
 
-	#copy over the config to the new file
-	cp ${OPENSHIFT_DATA_DIR}/sc_CONFIG_${SERVER_TYPE}.conf ${SHOUTCAST_CONF}
-
-	#run the server keep the pid /dev/null 2>&1 
-	nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > ${OPENSHIFT_LOG_DIR}/shout.log &
-	ps -ef | grep sc_serv | grep -v grep>jobline
-	job=`awk '{ print $2 }' jobline`
-	echo "$job" >${OPENSHIFT_SCS_PID}
-	rm -f jobline
-	client_result "PID $job copied to stream.pid SHOUTcast has Started."
-	
+#copy over the config to the new file
+cp ${SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf ${SHOUTCAST_CONF}
+#run the server
+#nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > /dev/null 2>&1 &
+nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > /dev/null 2>&1 &
+ps -ef | grep sc_serv | grep -v grep>jobline
+job=`awk '{ print $2 }' jobline`
+echo "$job" >${SHOUTCAST_DIR}/stream.pid
+rm -f jobline
+client_result "PID $job copied to stream.pid Shoutcast has Started."
 }
 
 #add a relay 

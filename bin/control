@@ -33,6 +33,8 @@ function save_about_gear() {
 function status() {
     if is_shoutcast_running ; then
         client_result "Application is running"
+		tail -1 $OPENSHIFT_SCS_DIR/logs/shout.log >$OPENSHIFT_SCS_DIR/logs/shout2.log && mv $OPENSHIFT_SCS_DIR/logs/shout2.log $OPENSHIFT_SCS_DIR/logs/shout.log
+		tail $OPENSHIFT_SCS_DIR/logs/shout.log | client_result
     else
         client_result "Application is not running"
     fi
@@ -118,12 +120,13 @@ ENDREAD
 	cp ${OPENSHIFT_DATA_DIR}/sc_CONFIG_${SERVER_TYPE}.conf ${SHOUTCAST_CONF}
 
 	#run the server keep the pid
-	nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > /dev/null 2>&1 &
+	nohup ${SHOUTCAST_DIR}/sc_serv ${SHOUTCAST_CONF} > $OPENSHIFT_SCS_DIR/logs/shout.log 2>&1 &
 	ps -ef | grep sc_serv | grep -v grep>jobline
 	job=`awk '{ print $2 }' jobline`
 	echo "$job" >${OPENSHIFT_SCS_PID}
 	rm -f jobline
 	client_result "PID $job copied to stream.pid SHOUTcast has Started."
+	tail $OPENSHIFT_SCS_DIR/logs/shout.log | client_result
 	
 }
 

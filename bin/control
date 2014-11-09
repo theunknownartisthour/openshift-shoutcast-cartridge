@@ -49,6 +49,7 @@ password=pass
 maxuser=64
 publicserver=default
 requirestreamconfigs=1
+streampath_1=/radio.mp3
 streamadminpassword_1=mainstream
 streamid_1=1
 streampassword_1=main

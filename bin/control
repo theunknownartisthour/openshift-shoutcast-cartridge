@@ -43,10 +43,11 @@ function status() {
 function start() {
 
 #default config for starting up
+#should not handle any more than default max for haproxy (256)
 read -d '' FileContent << "ENDREAD"
 adminpassword=adminpass
 password=pass
-maxuser=64
+maxuser=256
 publicserver=default
 requirestreamconfigs=1
 streampath_1=/radio.mp3
@@ -63,12 +64,12 @@ ENDREAD
     add_env_conf "password" "TEST"
 
 	#Auto Detection
-	if ! -f ${OPENSHIFT_DATA_DIR}/RELAYIP ; then
-		echo "${OPENSHIFT_SCS_IP}" > ${OPENSHIFT_DATA_DIR}/RELAYIP
+	if ! -f ${OPENSHIFT_DATA_DIR}/RELAYIP.txt ; then
+		echo "${OPENSHIFT_SCS_IP}" > ${OPENSHIFT_DATA_DIR}/RELAYIP.txt
 	fi
 		
-	if ! -f ${OPENSHIFT_DATA_DIR}/RELAYPORT ; then
-		echo "${OPENSHIFT_SCS_PORT}" > ${OPENSHIFT_DATA_DIR}/RELAYPORT
+	if ! -f ${OPENSHIFT_DATA_DIR}/RELAYPORT.txt ; then
+		echo "${OPENSHIFT_SCS_PORT}" > ${OPENSHIFT_DATA_DIR}/RELAYPORT.txt
 	fi
 		
 	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt ; then
@@ -77,9 +78,9 @@ ENDREAD
 	
 	SERVER_TYPE="$(<${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt)"
 	if [ "$OPENSHIFT_GEAR_DNS"=="$OPENSHIFT_APP_DNS" ] ; then
-		client_message "First Gear Starting Up!"
+		echo "First Gear Starting Up!"
 	else	
-		client_message "Another Gear Starting!"
+		echo "Another Gear Starting!"
 	fi
 	
 	
@@ -97,9 +98,9 @@ ENDREAD
 		echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_NORMAL.conf
 	fi
 	
-	RELAYIP="$(<${OPENSHIFT_DATA_DIR}/RELAYIP)"
-	RELAYPORT="$(<${OPENSHIFT_DATA_DIR}/RELAYPORT)"
-	#All gears have a relay on port 8080 connecting to /shoutcast which should be the main server
+	RELAYIP="$(<${OPENSHIFT_DATA_DIR}/RELAYIP.txt)"
+	RELAYPORT="$(<${OPENSHIFT_DATA_DIR}/RELAYPORT.txt)"
+	#All gears have a relay
 	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf ; then
 		echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
 		echo "relayserver=${RELAYIP}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf

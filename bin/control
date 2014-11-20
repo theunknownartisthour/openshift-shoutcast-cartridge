@@ -59,14 +59,29 @@ srcip=any
 
 ENDREAD
 	
-        add_env_conf "adminpassword" "TEST"
-        add_env_conf "password" "TEST"
+    add_env_conf "adminpassword" "TEST"
+    add_env_conf "password" "TEST"
 
+	#Auto Detection
+	if ! -f ${OPENSHIFT_DATA_DIR}/RELAYIP ; then
+		echo "${OPENSHIFT_SCS_IP}" > ${OPENSHIFT_DATA_DIR}/RELAYIP
+	fi
+		
+	if ! -f ${OPENSHIFT_DATA_DIR}/RELAYPORT ; then
+		echo "${OPENSHIFT_SCS_PORT}" > ${OPENSHIFT_DATA_DIR}/RELAYPORT
+	fi
+		
 	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt ; then
 		echo "NORMAL" > ${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt
 	fi
 	
 	SERVER_TYPE="$(<${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt)"
+	if [ "$OPENSHIFT_GEAR_DNS"=="$OPENSHIFT_APP_DNS" ] ; then
+		client_message "First Gear Starting Up!"
+	else	
+		client_message "Another Gear Starting!"
+	fi
+	
 	
 	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt ; then
 		#default for starting up properly
@@ -82,11 +97,13 @@ ENDREAD
 		echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_NORMAL.conf
 	fi
 	
+	RELAYIP="$(<${OPENSHIFT_DATA_DIR}/RELAYIP)"
+	RELAYPORT="$(<${OPENSHIFT_DATA_DIR}/RELAYPORT)"
 	#All gears have a relay on port 8080 connecting to /shoutcast which should be the main server
 	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf ; then
 		echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
-		echo "relayserver=${OPENSHIFT_APP_DNS}/shoutcast" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
-		echo "relayport=80" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
+		echo "relayserver=${RELAYIP}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
+		echo "relayport=${RELAYPORT}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
 		
 	fi
 	

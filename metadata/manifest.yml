@@ -45,12 +45,13 @@ Endpoints:
 - Private-IP-Name: SRC_IP
   Private-Port-Name: SRC_PORT
   Private-Port: 8080
+  Public-Port-Name: SRC_PROXY
   Protocols:
   - http
   - ws
   Mappings:
   - Frontend: '/shoutcast'
-    Backend: ''
+    Backend: '/'
     Options:
       websocket: true
 Source-Url: https://github.com/theunknownartisthour/openshift-shoutcast-cartridge/archive/master.zip

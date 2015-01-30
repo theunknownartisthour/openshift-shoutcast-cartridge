@@ -1,0 +1,4 @@
+client_message "Emptying Log Dir: $OPENSHIFT_SCS_DIR/logs"
+shopt -s dotglob
+rm -rf $OPENSHIFT_SCS_DIR/logs/*
+rm -rf $OPENSHIFT_SCS_DIR/tmp/*

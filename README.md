@@ -11,19 +11,17 @@ Streaming service with (not yet functional) scaling capabilities, simple one lin
 Currently available distributions:
 ----------------------------------
 
-Experimental:
--------------
-
---------------------------------------------------------------------------------------------
-> __rhc__ app-create __app-name__ http://shoutscale-rightoradio.rhcloud.com/manifest/master
---------------------------------------------------------------------------------------------
-
 From here:
 ----------
 
 --------------------------------------------------------------------------------------------------------
-> __rhc__ app-create __app-name__ https://raw.githubusercontent.com/theunknownartisthour/openshift-shoutcast-cartridge/master/metadata/manifest.yml
+> __rhc__ app-create __app-name__ [manifest.yml](https://raw.githubusercontent.com/theunknownartisthour/openshift-shoutcast-cartridge/master/metadata/manifest.yml)
 --------------------------------------------------------------------------------------------------------
+
+Instant Web Console Deployment:
+-------------------------------
+
+[CLICK ME](https://openshift.redhat.com/app/console/application_type/custom?cartridges%5B%5D=https%3A%2F%2Fraw.githubusercontent.com%2Ftheunknownartisthour%2Fopenshift-shoutcast-cartridge%2Fmaster%2Fmetadata%2Fmanifest.yml)
 
 Approach to scaling:
 --------------------

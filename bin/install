@@ -6,10 +6,9 @@ source "${OPENSHIFT_SCS_DIR}/lib/shoutinterface"
 env_dir="${OPENSHIFT_SCS_DIR}/env"
 
 adminusername=$(generate_username)
-
 adminpassword=$(generate_password)
-userpassword=$(generate_password)
 
+userpassword=$(generate_password)
 adminstreampass=$(generate_password)
 streampass=$(generate_password)
 
@@ -17,21 +16,8 @@ srcurl="${OPENSHIFT_GEAR_UUID}-${OPENSHIFT_GEAR_NAME}.rhcloud.com"
 
 scsfolder="${OPENSHIFT_REPO_DIR}"
 
-set_env_var 'OPENSHIFT_SCS_ADMIN_USERNAME' "$adminusername" $env_dir
-set_env_var 'OPENSHIFT_SCS_ADMIN_PASSWORD' "$adminpassword" $env_dir
-set_env_var 'OPENSHIFT_SCS_USER_PASSWORD' "$userpassword" $env_dir
 set_env_var 'OPENSHIFT_SCS_CONNECT' "$srcurl" $env_dir
 set_env_var 'OPENSHIFT_SCS_PID' "$scsfolder/stream.pid" $env_dir
-
-set_shoutcast_option 'adminpassword' "$adminpassword"
-set_shoutcast_option 'password' "$userpassword"
-
-set_shoutcast_option 'streamadminpassword_1' $adminstreampass
-set_shoutcast_option 'streamid_1' 1
-set_shoutcast_option 'streampassword_1' $streampass
-set_shoutcast_option 'publicport' 80
-set_shoutcast_option 'portlegacy' 0
-set_shoutcast_option 'srcip' "any"
 
 set_info 'SHOUTCAST_CONF' "$scsfolder/shoutconfig.conf"
 set_info 'SHOUTCAST_DIR' "$scsfolder"
@@ -45,7 +31,7 @@ client_result "   Root Password: $adminpassword"
 client_result "     Stream Id 1: 1"
 client_result "Stream Id 1 Pass: $streampass"
 client_result "Stream Id 1 Admn: $adminstreampass"
-client_result "    Streamto_url: $srcurl"
+client_result "        main_url: $srcurl"
 client_result "     Clients_url: $OPENSHIFT_APP_DNS"
 client_result ""
 #print_shoutcast_options

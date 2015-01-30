@@ -2,16 +2,22 @@
 
 # Source utility functions.
 source $OPENSHIFT_CARTRIDGE_SDK_BASH
-
-source "${OPENSHIFT_SCS_DIR}/lib/shoutinterface"
+#source "${OPENSHIFT_SCS_DIR}/lib/shoutinterface"
 
 env_dir="${OPENSHIFT_SCS_DIR}/env"
 
 STOPTIMEOUT=10
 FMT="%a %b %d %Y %H:%M:%S GMT%z (%Z)"
-	
+
+function ping_server_gears() {
+    #  Ping the server gears and wake 'em up on startup.
+    for geardns in $(web_gears | cut -f 3 -d ','); do
+          [ -z "$geardns" ]  ||  curl "http://$geardns/" > /dev/null 2>&1  ||  :
+    done
+}
+
+#create a pid file and test if server is up and running
 function is_shoutcast_running() {
-#create a stats file and test if server is up and running
 	if ! -f ${OPENSHIFT_SCS_PID} ; then
 		return 0
 	else
@@ -19,17 +25,7 @@ function is_shoutcast_running() {
 	fi
 }
 
-function save_about_gear() {
-	#up count or create 
-	#CONTENT = $3
-	#if ! -f ${OPENSHIFT_DATA_DIR}/gear/$1/$2.txt ; then
-	#echo "${CONTENT}" > ${OPENSHIFT_DATA_DIR}/gear/$1/$2.txt
-	GEARNUM=$(get_count)
-	set_info "GEAR_${GEARNUM}_CONNECTURL" "${OPENSHIFT_GEAR_UUID}-${OPENSHIFT_GEAR_NAME}.rhcloud.com"
-	#fi
-}
-
-# not sure what client_result does...
+#show the apps logs
 function status() {
     if is_shoutcast_running ; then
         client_result "Application is running"
@@ -40,8 +36,15 @@ function status() {
     fi
 }
 
+#check if this gear is the first gear
+function is_primary_gear() {
+	if [ "${OPENSHIFT_APP_UUID}" == "${OPENSHIFT_GEAR_UUID}" ]; then
+		return 1 #gearid="local-gear"
+	else
+		return 0
+	fi
+}
 function start() {
-
 #default config for starting up
 #should not handle any more than default max for haproxy (256)
 read -d '' FileContent << "ENDREAD"
@@ -50,7 +53,6 @@ password=pass
 maxuser=256
 publicserver=default
 requirestreamconfigs=1
-streampath_1=/radio.mp3
 streamadminpassword_1=mainstream
 streamid_1=1
 streampassword_1=main
@@ -60,72 +62,72 @@ srcip=any
 
 ENDREAD
 	
-    add_env_conf "adminpassword" "TEST"
-    add_env_conf "password" "TEST"
-
-	#Auto Detection
-	if ! -f ${OPENSHIFT_DATA_DIR}/RELAYIP.txt ; then
-		echo "${OPENSHIFT_SCS_IP}" > ${OPENSHIFT_DATA_DIR}/RELAYIP.txt
-	fi
-		
-	if ! -f ${OPENSHIFT_DATA_DIR}/RELAYPORT.txt ; then
-		echo "${OPENSHIFT_SCS_PORT}" > ${OPENSHIFT_DATA_DIR}/RELAYPORT.txt
-	fi
 		
 	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt ; then
 		echo "NORMAL" > ${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt
 	fi
 	
 	SERVER_TYPE="$(<${OPENSHIFT_SCS_SHOUTCAST_DIR}/mode.txt)"
-	if [ "$OPENSHIFT_GEAR_DNS"=="$OPENSHIFT_APP_DNS" ] ; then
-		echo "First Gear Starting Up!"
-	else	
-		echo "Another Gear Starting!"
+	
+	#Auto assign relay gears
+	if is_primary_gear ; then
+		SERVER_TYPE="RELAY"
 	fi
 	
-	
-	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt ; then
+	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf ; then
 		#default for starting up properly
-		echo "${FileContent}" > ${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt
-		echo "portbase=${OPENSHIFT_SCS_PORT}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt
-		echo "destip=${OPENSHIFT_SCS_IP}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt
-		echo "publicip=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt
+		echo "${FileContent}" > ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
+		echo "portbase=${OPENSHIFT_SCS_PORT}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
+		echo "destip=${OPENSHIFT_SCS_IP}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
+		#echo "srcip=${OPENSHIFT_SCS_SRC_IP}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
+		echo "publicip=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
 	fi
 	
-	FileContent="$(<${OPENSHIFT_SCS_SHOUTCAST_DIR}/settings.txt)"
+	#FileContent="$(<${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf)"
 	
 	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_NORMAL.conf ; then
-		echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_NORMAL.conf
-	fi
-	
-	RELAYIP="$(<${OPENSHIFT_DATA_DIR}/RELAYIP.txt)"
-	RELAYPORT="$(<${OPENSHIFT_DATA_DIR}/RELAYPORT.txt)"
-	#All gears have a relay
-	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf ; then
-		echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
-		echo "relayserver=${RELAYIP}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
-		echo "relayport=${RELAYPORT}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
-		
-	fi
-	
-	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAYONLY.conf ; then
-		echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAYONLY.conf
-		echo "relayserver=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAYONLY.conf
-		echo "relayport=80" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAYONLY.conf
+		#echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_NORMAL.conf
+		echo "include=sc_basic.conf" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_NORMAL.conf
 	fi
 
-#copy over the config to the new file, copy back to capture auth-hash
-cp ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf ${OPENSHIFT_SCS_SHOUTCAST_CONF}
-#run the server
-nohup ${OPENSHIFT_REPO_DIR}/server/sc_serv ${OPENSHIFT_SCS_SHOUTCAST_CONF} > ${OPENSHIFT_LOG_DIR}\shout.log 2>&1 &
-ps -ef | grep sc_serv | grep -v grep>jobline
-job=`awk '{ print $2 }' jobline`
-slog="$(<${OPENSHIFT_LOG_DIR}\shout.log)"
-conflog=$(print_conf "TEST")
-echo "$job" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/stream.pid
-rm -f jobline
-cp ${OPENSHIFT_SCS_SHOUTCAST_CONF} ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf
-client_result "PID $job copied to stream.pid Shoutcast has Started: \n $slog \n $conflog"
+	if ! -f ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf ; then
+		#echo "${FileContent}" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
+		echo "include=sc_basic.conf" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
+		#should work for relays and source
+		echo "relayserver=${OPENSHIFT_APP_DNS}/shoutcast" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
+		echo "relayport=80" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_RELAY.conf
+	fi
+
+	#pull backup over if it contains the authhash
+	client_result "Checking Backup Configuration"
+	if grep -q authhash "${OPENSHIFT_SCS_SHOUTCAST_CONF}.backup" ; then
+		client_result "Restoring Backup Configuration"
+		cp ${OPENSHIFT_SCS_SHOUTCAST_CONF}.backup ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf
+	fi
+	
+	#copy over the config to the new file, copy back to capture auth-hash
+	client_result "Running sc_${SERVER_TYPE}.conf"
+	cp ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf ${OPENSHIFT_SCS_SHOUTCAST_CONF}
+	#run the server
+	nohup ${OPENSHIFT_REPO_DIR}/server/sc_serv ${OPENSHIFT_SCS_SHOUTCAST_CONF} > ${OPENSHIFT_LOG_DIR}\shout.log 2>&1 &
+	ps -ef | grep sc_serv | grep -v grep>jobline
+	job=`awk '{ print $2 }' jobline`
+	slog="$(<${OPENSHIFT_LOG_DIR}\shout.log)"
+	conflog=$(print_conf "TEST")
+	echo "$job" >${OPENSHIFT_SCS_SHOUTCAST_DIR}/stream.pid
+	rm -f jobline
+	
+	#if the streamauthhash appears
+	if grep -q authhash "${OPENSHIFT_SCS_SHOUTCAST_CONF}" ; then
+		cp ${OPENSHIFT_SCS_SHOUTCAST_CONF} ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_${SERVER_TYPE}.conf
+	fi
+	
+	if is_shoutcast_running ; then
+        client_result "Shoutcast has Started"
+		client_result "PID $job copied to stream.pid"
+	else
+		client_result "Problem: $slog"
+	fi
 }
 
 #add a relay 

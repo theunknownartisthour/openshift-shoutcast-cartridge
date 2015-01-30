@@ -15,7 +15,7 @@ Website: http://www.theunknownartisthour.com
 Help-Topics:
   Getting Started: http://stackoverflow.com/questions/25460900/creating-a-scalable-shoutcast-solution-on-openshift
 Provides:
-- Shoutcast-2.2.2
+- Shoutcast-2.4
 - Shoutcast
 Publishes: 
 Subscribes:
@@ -27,7 +27,6 @@ Scaling:
   Max: -1
 Group-Overrides:
 - components:
-  - web-proxy
 Endpoints:
 - Private-IP-Name: IP
   Private-Port-Name: PORT
@@ -43,9 +42,9 @@ Endpoints:
     Backend: ''
     Options:
       websocket: true
-- Private-IP-Name: FIRST_IP
-  Private-Port-Name: FIRST_PORT
-  Private-Port: 9000
+- Private-IP-Name: SRC_IP
+  Private-Port-Name: SRC_PORT
+  Private-Port: 8080
   Protocols:
   - http
   - ws

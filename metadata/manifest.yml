@@ -38,6 +38,10 @@ Endpoints:
   Options:
     primary: true
   Mappings:
+  - Frontend: '/relay'
+    Backend: ''
+    Options:
+      noproxy: true
   - Frontend: ''
     Backend: ''
     Options:
@@ -53,5 +57,5 @@ Endpoints:
   - Frontend: '/shoutcast'
     Backend: '/'
     Options:
-      websocket: true
+      noproxy: true
 Source-Url: https://github.com/theunknownartisthour/openshift-shoutcast-cartridge/archive/master.zip

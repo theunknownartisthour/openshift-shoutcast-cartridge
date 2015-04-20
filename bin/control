@@ -78,7 +78,8 @@ ENDREAD
 		echo "${FileContent}" > ${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
 		echo "portbase=${OPENSHIFT_SCS_PORT}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
 		echo "destip=${OPENSHIFT_SCS_IP}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
-		echo "srcip=${OPENSHIFT_SCS_SRC_IP}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
+		#echo "srcip=${OPENSHIFT_SCS_SRC_IP}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
+		echo "srcip=any" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
 		echo "publicip=${OPENSHIFT_APP_DNS}" >>${OPENSHIFT_SCS_SHOUTCAST_DIR}/sc_basic.conf
 	fi
 	

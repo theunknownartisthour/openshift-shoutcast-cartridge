@@ -1,34 +1,13 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" dir="ltr" lang="en"><head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-	<title>SHOUTcast DNAS Server XML Responses</title>
-	<style type="text/css">body,table,textarea,pre{font-family:Arial,Helvetica,sans-serif;font-size:10pt;}
-	.header{background-color:rgb(66,164,189);color:white;padding:1px;}
-	a:link,a:visited{color:#2762AE;text-decoration:none;}
-	a:hover{text-decoration:underline;}
-	ul{list-style-type:none;text-align:left;}
-	ul.n{list-style-type:square;text-align:left;}
-	pre{background-color:#F0F0F0;border:1px solid #CCCCCC;font-weight:bold;padding:5px 10px 5px 10px;display:inline-block;margin-top:0;margin-bottom:0;margin-left:25px;}
-	pre.src{border:0;font-family:monospace;background-color:white;}
-	span.b{font-weight:normal;color:#3366CC;}
-	span.c{font-style:italic;font-weight:normal;color:#808080;}
-	span.v{font-weight:normal;}
-	span.r{font-weight:normal;color:#000066;}
-	span.s{font-weight:normal;color:#FF0000;}
-	#toc{border:1px solid #CCCCCC;padding:0 5px 0 5px;text-align: center;}
-	p.ver{font-size:85%;margin-top:-1.5em;text-align:center;}
-	.thumb{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:202px;}
-	.serv{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:252px;}
-	.pages{white-space:nowrap;padding-right:25px;}
-	img{width:200px;}
-	img.serv{width:250px;}
-	img.thumb{border:1px solid #CCCCCC;}
-	hr{border:0;background-color:#CCCCCC;height:1px;)</style>
-	<script type="text/javascript">if(window.showTocToggle){var tocShowText="show";var tocHideText="hide";showTocToggle()}function showTocToggle(){if(document.createTextNode){var linkHolder=document.getElementById('toctitle');if(!linkHolder){return}var outerSpan=document.createElement('span');outerSpan.className='toctoggle';var toggleLink=document.createElement('a');toggleLink.id='togglelink';toggleLink.className='internal';toggleLink.href='javascript:toggleToc()';toggleLink.appendChild(document.createTextNode(tocHideText));outerSpan.appendChild(document.createTextNode('['));outerSpan.appendChild(toggleLink);outerSpan.appendChild(document.createTextNode(']'));linkHolder.appendChild(document.createTextNode(' '));linkHolder.appendChild(outerSpan);var cookiePos=document.cookie.indexOf("xml_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+12)==1){toggleToc()}}}function changeText(el,newText){if(el.innerText){el.innerText=newText}else if(el.firstChild&&el.firstChild.nodeValue){el.firstChild.nodeValue=newText}}function toggleToc(){var toc=document.getElementById('toc').getElementsByTagName('ul')[0];var toggleLink=document.getElementById('togglelink');if(toc&&toggleLink&&toc.style.display=='none'){changeText(toggleLink,tocHideText);document.getElementById('toc').style.cssFloat='left';toc.style.display='block';document.cookie="xml_hidetoc=0"}else{changeText(toggleLink,tocShowText);document.getElementById('toc').style.cssFloat='';toc.style.display='none';document.cookie="xml_hidetoc=1"}}window.onload=function(){var cookiePos=document.cookie.indexOf("xml_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+12)==1){toggleToc()}}</script>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>SHOUTcast DNAS Server XML Responses</title>
+<style type="text/css">body,table,textarea,pre{font-family:Arial,Helvetica,sans-serif;font-size:10pt;}.header{background-color:rgb(66,164,189);color:white;padding:1px;}a:link,a:visited{color:#2762AE;text-decoration:none;}a:hover{text-decoration:underline;}ul{list-style-type:none;text-align:left;}ul.n{list-style-type:square;text-align:left;}pre{background-color:#F0F0F0;border:1px solid #CCCCCC;font-weight:bold;padding:5px 10px 5px 10px;display:inline-block;margin-top:0;margin-bottom:0;margin-left:25px;}pre.src{border:0;font-family:monospace;background-color:white;}span.b{font-weight:normal;color:#3366CC;}span.c{font-style:italic;font-weight:normal;color:#808080;}span.v{font-weight:normal;}span.r{font-weight:normal;color:#000066;}span.s{font-weight:normal;color:#FF0000;}#toc{border:1px solid #CCCCCC;padding:0 5px 0 5px;text-align: center;}p.ver{font-size:85%;margin-top:-1.5em;text-align:center;}.thumb{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:202px;}.serv{float:right;clear:both;margin-left:10px;margin-top:5px;margin-bottom:10px;width:252px;}.pages{white-space:nowrap;padding-right:25px;}img{width:200px;}img.serv{width:250px;}img.thumb{border:1px solid #CCCCCC;}hr{border:0;background-color:#CCCCCC;height:1px;)</style>
+<script type="text/javascript">if(window.showTocToggle){var tocShowText="show";var tocHideText="hide";showTocToggle()}function showTocToggle(){if(document.createTextNode){var linkHolder=document.getElementById('toctitle');if(!linkHolder){return}var outerSpan=document.createElement('span');outerSpan.className='toctoggle';var toggleLink=document.createElement('a');toggleLink.id='togglelink';toggleLink.className='internal';toggleLink.href='javascript:toggleToc()';toggleLink.appendChild(document.createTextNode(tocHideText));outerSpan.appendChild(document.createTextNode('['));outerSpan.appendChild(toggleLink);outerSpan.appendChild(document.createTextNode(']'));linkHolder.appendChild(document.createTextNode(' '));linkHolder.appendChild(outerSpan);var cookiePos=document.cookie.indexOf("xml_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+12)==1){toggleToc()}}}function changeText(el,newText){if(el.innerText){el.innerText=newText}else if(el.firstChild&&el.firstChild.nodeValue){el.firstChild.nodeValue=newText}}function toggleToc(){var toc=document.getElementById('toc').getElementsByTagName('ul')[0];var toggleLink=document.getElementById('togglelink');if(toc&&toggleLink&&toc.style.display=='none'){changeText(toggleLink,tocHideText);document.getElementById('toc').style.cssFloat='left';toc.style.display='block';document.cookie="xml_hidetoc=0"}else{changeText(toggleLink,tocShowText);document.getElementById('toc').style.cssFloat='';toc.style.display='none';document.cookie="xml_hidetoc=1"}}window.onload=function(){var cookiePos=document.cookie.indexOf("xml_hidetoc=");if(cookiePos>-1&&document.cookie.charAt(cookiePos+12)==1){toggleToc()}}</script>
 </head>
 <div class="header">
 <h1 align="center">SHOUTcast DNAS Server XML Responses</h1>
-<p class="ver">(Last Updated 16 September 2014)</p>
+<p class="ver">(Last Updated 16 March 2015)</p>
 </div>
 <table id="toc" style="float:left;margin-right:40px;margin-bottom:5px;"><tbody><tr><td>
 <div id="toctitle"><b>Contents</b> <span class="toctoggle">[<a id="togglelink" class="internal" href="javascript:toggleToc()">hide</a>]</span></div>
@@ -47,7 +26,7 @@
 <li><a href="#Bandwidth_Usage">2.9 Bandwidth Usage</a></li>
 <li><a href="#Directory_Status">2.10 Directory Status</a></li>
 <li><a href="#7.html">2.11 7.html (Legacy)</a>
-</ul>
+</ul></ul>
 </td></tr></tbody></table>
 
 <a name="Introduction"></a><h2>1.&nbsp;Introduction</h2>
@@ -57,9 +36,9 @@
 
 <a name="How_to_Access_the_XML_Responses"></a><h2>2.&nbsp;How to Access the XML Responses <a style="font-size:55%;" href="#">[top]</a></h2>
 <hr>
-<p>With the v2 DNAS server being able to support multiple streams compared to the single stream which a v1 DNAS server supports, to access information for each stream requires you specify the stream identifier of the stream that you require.</p>
+<p>With the 2.x DNAS server being able to support multiple streams compared to the single stream which a 1.x DNAS server supports, to access information for each stream requires you specify the stream identifier of the stream that you require.</p>
 <p>For example to access the General Server Summary (<a href="#General_Server_Summary" title="">see section 2.2</a>) for stream identifier <b>#1</b> then the following would be used:</p>
-<pre>http://&lt;serverip&gt;:&lt;port&gt;/admin.cgi?mode=viewxml&page=1&sid=1</pre>
+<pre>http://&lt;serverip&gt;:&lt;port&gt;/admin.cgi?mode=viewxml&amp;page=1&amp;sid=1</pre>
 <br>or<br>
 <pre>http://&lt;serverip&gt;:&lt;port&gt;/stats?sid=1</pre>
 <p>To access the same information for stream identifier <b>#2</b> then replace <b>1</b> with <b>2</b> and so on for any of the streams you want to obtain the information from.<br><br></p>
@@ -71,27 +50,30 @@ instead of /stats?sid=# where # is the stream identifier.</pre>
 <a name="Full_Server_Summary"></a><h2>2.1.&nbsp;Full Server Summary <a style="font-size:55%;" href="#">[top]</a></h2>
 <hr>
 <p>When using the administrative <b>admin.cgi?mode=viewxml</b> option, the XML response consists of the general stream details which can be found over the administration and public summary pages (if access to them is enabled) in addition to details of the Listener Statistics (<a href="#Listener_Statistics" title="">see section 2.3</a>) and Song History (<a href="#Song_History" title="">see section 2.4</a>).</p>
-<p>If you only require a specific set of information instead of everything then you should use the <b>&page=X</b> parameter as the XML response from this response is a combination of the following responses:</p>
+<p>If you only require a specific set of information instead of everything then you should use the <b>&amp;page=X</b> parameter as the XML response from this response is a combination of the following responses:</p>
 <p style="padding-left:25px;"><b>General Server Summary</b> (<a href="#General_Server_Summary" title="">section 2.2</a>)<br><b>Listener Statistics</b> (<a href="#Listener_Statistics" title="">section 2.3</a>)<br><b>Song History</b> (<a href="#Song_History" title="">section 2.4</a>)</p>
 <p><br></p>
 
 <a name="General_Server_Summary"></a><h2>2.2.&nbsp;General Server Summary <a style="font-size:55%;" href="#">[top]</a></h2>
 <hr>
-<p>When using the administrative <b>admin.cgi?mode=viewxml&page=1</b> or the public <b>/stats</b> option, the XML response consists of the general stream details which can be found over the administration and public summary pages (if access to them is enabled). This is a compact version of what is shown in the 'Full Server Summary' (<a href="#Full_Server_Summary" title="">see section 2.1</a>) and acts as the equivalent of 7.html from the v1 DNAS server (<a href="#Equivalent_of_7.html" title="">see section 3.0</a>).</p>
+<p>When using the administrative <b>admin.cgi?mode=viewxml&amp;page=1</b> or the public <b>/stats</b> option, the XML response consists of the general stream details which can be found over the administration and public summary pages (if access to them is enabled). This is a compact version of what is shown in the 'Full Server Summary' (<a href="#Full_Server_Summary" title="">see section 2.1</a>) and acts as the equivalent of 7.html from the 1.x DNAS server (<a href="#Equivalent_of_7.html" title="">see section 3.0</a>).</p>
 <p>Example:</p>
 <pre class="src">&lt;?xml <span class="r">version=</span><span class="s">"1.0"</span> <span class="r">encoding=</span><span class="s">"UTF-8"</span> <span class="r">standalone=</span><span class="s">"yes"</span> ?&gt;
   &lt;SHOUTCASTSERVER&gt;
     &lt;CURRENTLISTENERS&gt;<span class="v">0</span>&lt;/CURRENTLISTENERS&gt;
     &lt;PEAKLISTENERS&gt;<span class="v">0</span>&lt;/PEAKLISTENERS&gt;
-    <span class="c">&lt;!-- the maximum number of client connections potentially allowed which depends --&gt;</span>
+    <span class="c">&lt;!-- the maximum number of listener connections potentially allowed which depends --&gt;</span>
     <span class="c">&lt;!-- on the maxuser and streammaxuser config options and other stream configs --&gt;</span>
     &lt;MAXLISTENERS&gt;<span class="v">32</span>&lt;/MAXLISTENERS&gt;
     &lt;UNIQUELISTENERS&gt;<span class="v">0</span>&lt;/UNIQUELISTENERS&gt;
-    <span class="c">&lt;!-- average time (seconds) of any active client connections --&gt;</span>
+    <span class="c">&lt;!-- average time (seconds) of any active listener connections --&gt;</span>
     &lt;AVERAGETIME&gt;<span class="v">0</span>&lt;/AVERAGETIME&gt;
 
-    <span class="c">&lt;!-- these are some information about the stream as shown in clients, etc --&gt;</span>
+    <span class="c">&lt;!-- these are some information about the stream as shown in listener clients, etc --&gt;</span>
     &lt;SERVERGENRE&gt;<span class="v">Misc</span>&lt;/SERVERGENRE&gt;
+    <span class="c">&lt;!-- there can also be: SERVERGENRE2, SERVERGENRE3, SERVERGENRE4 and --&gt;</span>
+    <span class="c">&lt;!-- SERVERGENRE5 elements depending on how the stream has been setup --&gt;</span>
+
     &lt;SERVERURL&gt;<span class="v">http://my_website.com</span>&lt;/SERVERURL&gt;
     &lt;SERVERTITLE&gt;<span class="v">Test Server</span>&lt;/SERVERTITLE&gt;
 
@@ -100,14 +82,8 @@ instead of /stats?sid=# where # is the stream identifier.</pre>
     &lt;SONGTITLE&gt;<span class="v">The Current Song</span>&lt;/SONGTITLE&gt;
     &lt;NEXTTITLE&gt;<span class="v">The Next Song</span>&lt;/NEXTTITLE&gt;
 
-    <span class="c">&lt;!-- these 3 are only listed if the stream is from a SHOUTcast v1 source --&gt;</span>
-    <span class="c">&lt;!-- otherwise they are not included as v2 sources do not support them --&gt;</span>
-    &lt;IRC&gt;&lt;/IRC&gt;
-    &lt;ICQ&gt;&lt;/ICQ&gt;
-    &lt;AIM&gt;&lt;/AIM&gt;
-
-    <span class="c">&lt;!-- User ID of the source which typically comes from a SHOUTcast v2 source --&gt;</span>
-    <span class="c">&lt;!-- note: this can be present if a v1 source is in use due to metadata updates --&gt;</span>
+    <span class="c">&lt;!-- User ID of the source which typically comes from a SHOUTcast 2.x source --&gt;</span>
+    <span class="c">&lt;!-- note: this can be present if a 1.x source is in use due to metadata updates --&gt;</span>
     &lt;DJ&gt;<span class="v">DJ Funky</span>&lt;/DJ&gt;
 
     <span class="c">&lt;!-- if the SHOUTcast source provides an associated song url e.g. via the updinfo --&gt;</span>
@@ -118,13 +94,27 @@ instead of /stats?sid=# where # is the stream identifier.</pre>
     &lt;STREAMHITS&gt;<span class="v">0</span>&lt;/STREAMHITS&gt;
 
     <span class="c">&lt;!-- shows 1 if a source is connected and 0 if there is no source --&gt;</span>
-    <span class="c">&lt;!-- note: if there is no source then no client connections occur --&gt;</span>
+    <span class="c">&lt;!-- note: if there is no source then no listener connections occur --&gt;</span>
+    <span class="c">&lt;!--       unless a valid backupfile has been configured to be used --&gt;</span>
     &lt;STREAMSTATUS&gt;<span class="v">1</span>&lt;/STREAMSTATUS&gt;
 
     <span class="c">&lt;!-- shows 1 if a backup source is active instead of the main source --&gt;</span>
     <span class="c">&lt;!-- due to connection issues and 0 if the backup source is not used --&gt;</span>
-    <span class="c">&lt;!-- note: if there is no source then no client connections occur --&gt;</span>
+    <span class="c">&lt;!-- note: if there is no source then no listener connections occur --&gt;</span>
+    <span class="c">&lt;!--       unless a valid backupfile has been configured to be used --&gt;</span>
     &lt;BACKUPSTATUS&gt;<span class="v">0</span>&lt;/BACKUPSTATUS&gt;
+
+    <span class="c">&lt;!-- shows 1 if successfully listed and 0 if not or is private --&gt;</span>
+    &lt;STREAMLISTED&gt;<span class="v">1</span>&lt;/STREAMLISTED&gt;
+    <span class="c">&lt;!-- if there is an error being listed then the code is provided --&gt;</span>
+    <span class="c">&lt;!-- here and if there is no error then this is not provided --&gt;</span>
+    &lt;STREAMLISTEDERROR&gt;<span class="v">480</span>&lt;/STREAMLISTEDERROR&gt;
+
+    <span class="c">// these are only provided if a valid password is provided on the request</span>
+    <span class="c">// with information about the current source and backup (if set) provided</span>
+    &lt;STREAMSOURCE&gt;<span class="v">123.123.123.123</span>&lt;/STREAMSOURCE&gt;
+    <span class="c">// this is not provided if there is no backup source specified</span>
+    &lt;STREAMBACKUP&gt;<span class="v">my_backup_url:port</span>&lt;/STREAMBACKUP&gt;
 
     <span class="c">&lt;!-- time in seconds the stream has been running --&gt;</span>
     <span class="c">&lt;!-- this is not provided if there is no stream --&gt;</span>
@@ -142,19 +132,29 @@ instead of /stats?sid=# where # is the stream identifier.</pre>
 
 <a name="Listener_Statistics"></a><h2>2.3.&nbsp;Listener Statistics <a style="font-size:55%;" href="#">[top]</a></h2>
 <hr>
-<p>When using the administrative <b>admin.cgi?mode=viewxml&page=3</b> option, the XML response has details about any currently connected clients for the specified stream. If there are no clients connected then there will be no <LISTENER> entries in the XML response generated.</p>
+<p>When using the administrative <b>admin.cgi?mode=viewxml&amp;page=3</b> option, the XML response has details about any currently connected listeners for the specified stream. If there are no listeners connected then there will be no &lt;LISTENER&gt; entries in the XML response generated.</p>
 <p>Example:</p>
 <pre class="src">&lt;?xml <span class="r">version=</span><span class="s">"1.0"</span> <span class="r">encoding=</span><span class="s">"UTF-8"</span> <span class="r">standalone=</span><span class="s">"yes"</span> ?&gt;
   &lt;SHOUTCASTSERVER&gt;
     &lt;LISTENERS&gt;
       &lt;LISTENER&gt;
         &lt;HOSTNAME&gt;<span class="v">127.0.0.1</span>&lt;/HOSTNAME&gt;
-        <span class="c">&lt;!-- this is set to **EMPTY** if no user agent was provided by the client --&gt;</span>
+        <span class="c">&lt;!-- this is set to **EMPTY** if no user agent was provided by the listener --&gt;</span>
         &lt;USERAGENT&gt;<span class="v">WinampMPEG/5.66</span>&lt;/USERAGENT&gt;
         &lt;CONNECTTIME&gt;<span class="v">1337</span>&lt;/CONNECTTIME&gt;
-        <span class="c">&lt;!-- a unique number for the client connection used to determine duplicates --&gt;</span>
-        <span class="c">&lt;!-- this is unique whilst the client is connected but can be re-used after --&gt;</span>
+        <span class="c">&lt;!-- a unique number for the listener connection used to determine duplicates --&gt;</span>
+        <span class="c">&lt;!-- this is unique whilst the listener is connected but can be re-used after --&gt;</span>
         &lt;UID&gt;<span class="v">01234567</span>&lt;/UID&gt;
+        <span class="c">&lt;!-- this represents the type of the listener client and anything else internally known --&gt;</span>
+        &lt;TYPE&gt;<span class="v">1234567</span>&lt;/TYPE&gt;
+        <span class="c">&lt;!-- this is the referer header of the listener client connection (if provided) --&gt;</span>
+        &lt;REFERER&gt;<span class="v">/admin.cgi</span>&lt;/REFERER&gt;
+        <span class="c">&lt;!-- this is the X-Forwarded-For header of the listener client connection (if provided) --&gt;</span>
+        &lt;XFF&gt;<span class="v"></span>&lt;/XFF&gt;
+        <span class="c">&lt;!-- this is the advert group id of the listener connection or zero if not gotten --&gt;</span>
+        &lt;GRID&gt;<span class="v">0</span>&lt;/GRID&gt;
+        <span class="c">&lt;!-- this is the number of advert runs which have successfully succeed for the listener --&gt;</span>
+        &lt;TRIGGERS&gt;<span class="v">123</span>&lt;/TRIGGERS&gt;
       &lt;/LISTENER&gt;
     &lt;/LISTENERS&gt;
   &lt;/SHOUTCASTSERVER&gt;</pre>
@@ -162,7 +162,7 @@ instead of /stats?sid=# where # is the stream identifier.</pre>
 
 <a name="Song_History"></a><h2>2.4.&nbsp;Song History <a style="font-size:55%;" href="#">[top]</a></h2>
 <hr>
-<p>When using the administrative <b>admin.cgi?mode=viewxml&page=4</b> option, the XML response is made from the currently stored played history (if enabled) for the specified stream. If any song titles have been sent to the server then they will displayed up to the number of songs played to be stoeed (based on the 'songhistory' and 'streamsonghistory' options (<a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2" title="">see DNAS server</a> - <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2#Miscellaneous" title="">section 4.7</a> and <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2#Stream_Configuration" title="">section 4.12</a> respectively). If there are no song titles held or the DNAS server is not configured to store them (see above) then there will be no <SONG> entries in the XML response generated.</p>
+<p>When using the administrative <b>admin.cgi?mode=viewxml&amp;page=4</b> option, the XML response is made from the currently stored played history (if enabled) for the specified stream. If any song titles have been sent to the server then they will displayed up to the number of songs played to be stoeed (based on the 'songhistory' and 'streamsonghistory' options (<a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2" title="">see DNAS server</a> - <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2#Miscellaneous" title="">section 4.7</a> and <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2#Stream_Configuration" title="">section 4.12</a> respectively). If there are no song titles held or the DNAS server is not configured to store them (see above) then there will be no &lt;SONG&gt; entries in the XML response generated.</p>
 <p>Example:</p>
 <pre class="src">&lt;?xml <span class="r">version=</span><span class="s">"1.0"</span> <span class="r">encoding=</span><span class="s">"UTF-8"</span> <span class="r">standalone=</span><span class="s">"yes"</span> ?&gt;
   &lt;SHOUTCASTSERVER&gt;
@@ -182,12 +182,12 @@ instead of /stats?sid=# where # is the stream identifier.</pre>
 
 <a name="Stream_Metadata"></a><h2>2.5.&nbsp;Stream Metadata <a style="font-size:55%;" href="#">[top]</a></h2>
 <hr>
-<p>When using the administrative <b>admin.cgi?mode=viewxml&page=5</b> option, the XML response is the currently stored stream metadata as provided by the connected stream source or from any manual title updates (e.g. when using admin.cgi?sid=#&mode=updinfo&song=title) which may have been received for the stream. This can contain just a title (typical with a v1 stream source) or it can consist of complete range of metadata as taken from the audio source when using a v2 stream source e.g. an MP3 file with a complete ID3 tag.</p>
+<p>When using the administrative <b>admin.cgi?mode=viewxml&amp;page=5</b> option, the XML response is the currently stored stream metadata as provided by the connected stream source or from any manual title updates (e.g. when using admin.cgi?sid=#&amp;mode=updinfo&amp;song=title) which may have been received for the stream. This can contain just a title (typical with a 1.x stream source) or it can consist of complete range of metadata as taken from the audio source when using a 2.x stream source e.g. an MP3 file with a complete ID3 tag.</p>
 <p>Example:</p>
 <pre class="src">&lt;?xml <span class="r">version=</span><span class="s">"1.0"</span> <span class="r">encoding=</span><span class="s">"UTF-8"</span> <span class="r">standalone=</span><span class="s">"yes"</span> ?&gt;
   &lt;SHOUTCASTSERVER&gt;
     &lt;SONGMETADATA&gt;
-      <span class="c">&lt;!-- this will be the only entry if a SHOUTcast v1 source is connected --&gt;</span>
+      <span class="c">&lt;!-- this will be the only entry if a SHOUTcast 1.x source is connected --&gt;</span>
       &lt;TIT2&gt;<span class="v">The Current Title</span>&lt;/TIT2&gt;
       &lt;TALB&gt;<span class="v">The Album Title</span>&lt;/TALB&gt;
       &lt;TPE1&gt;<span class="v">The Artist</span>&lt;/TPE1&gt;
@@ -198,12 +198,12 @@ instead of /stats?sid=# where # is the stream identifier.</pre>
       &lt;WORS&gt;<span class="v">http://www.shoutcast.com</span>&lt;/WORS&gt;
     &lt;/SONGMETADATA&gt;
   &lt;/SHOUTCASTSERVER&gt;</pre>
-<p>Detailed information on the supported fields as well as suggested fields to provide from a v2 stream source can be found in <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_XML_Metadata_Specification">sc2_xml_metadata.txt</a>.</p>
+<p>Detailed information on the supported fields as well as suggested fields to provide from a 2.x stream source can be found in <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_XML_Metadata_Specification">sc2_xml_metadata.txt</a>.</p>
 <p><br></p>
 
 <a name="Stream_Configurations"></a><h2>2.6.&nbsp;Stream Configurations <a style="font-size:55%;" href="#">[top]</a></h2>
 <hr>
-<p>When using the administrative <b>admin.cgi?sid=1&mode=viewxml&page=6</b> option, the XML response is all currently known stream configuration details (based on the configuration options set in the loaded configuration file) as well as any global stream configuration options which are applicable.</p>
+<p>When using the administrative <b>admin.cgi?sid=1&amp;mode=viewxml&amp;page=6</b> option, the XML response is all currently known stream configuration details (based on the configuration options set in the loaded configuration file) as well as any global stream configuration options which are applicable.</p>
 <pre>This is a global action and the stream identifier is not be used but is required to
 allow the DNAS server to process the request correctly e.g. set sid=1 in all cases.</pre>
 <p>Example:</p>
@@ -256,7 +256,7 @@ allow the DNAS server to process the request correctly e.g. set sid=1 in all cas
 
 <a name="Server_Statistics"></a><h2>2.8.&nbsp;Server Statistics <a style="font-size:55%;" href="#">[top]</a></h2>
 <hr>
-<p>When using the public <b>/statistics</b> admin option, the XML response contains a list of the responses returned via /stats for all known stream configurations and streams which have a connected source (even if they are not directly specified in the stream configuration). Additionally it provides consolidated statistics including the total unique number of clients connected to the server when viewed across all of the active streams (if at all).</p>
+<p>When using the public <b>/statistics</b> admin option, the XML response contains a list of the responses returned via /stats for all known stream configurations and streams which have a connected source (even if they are not directly specified in the stream configuration). Additionally it provides consolidated statistics including the total unique number of listeners connected to the server when viewed across all of the active streams (if at all).</p>
 <p>Example:</p>
 <pre class="src">&lt;?xml <span class="r">version=</span><span class="s">"1.0"</span> <span class="r">encoding=</span><span class="s">"UTF-8"</span> <span class="r">standalone=</span><span class="s">"yes"</span> ?&gt;
   &lt;SHOUTCASTSERVER&gt;
@@ -270,12 +270,12 @@ allow the DNAS server to process the request correctly e.g. set sid=1 in all cas
 
       &lt;CURRENTLISTENERS&gt;<span class="v">0</span>&lt;/CURRENTLISTENERS&gt;
       &lt;PEAKLISTENERS&gt;<span class="v">0</span>&lt;/PEAKLISTENERS&gt;
-      <span class="c">&lt;!-- the maximum number of client connections allowed in total to the server --&gt;</span>
+      <span class="c">&lt;!-- the maximum number of listener connections allowed in total to the server --&gt;</span>
       &lt;MAXLISTENERS&gt;<span class="v">32</span>&lt;/MAXLISTENERS&gt;
-      <span class="c">&lt;!-- the number of unique client connections across all active streams so if --&gt;</span>
-      <span class="c">&lt;!-- one client is on 2 streams, this will only be counted as one unique client --&gt;</span>
+      <span class="c">&lt;!-- the number of unique listener connections across all active streams so if --&gt;</span>
+      <span class="c">&lt;!-- one listener is on 2 streams, this will only be counted as one unique listener --&gt;</span>
       &lt;UNIQUELISTENERS&gt;<span class="v">0</span>&lt;/UNIQUELISTENERS&gt;
-      <span class="c">&lt;!-- average time (seconds) of any active client connections on all streams --&gt;</span>
+      <span class="c">&lt;!-- average time (seconds) of any active listener connections on all streams --&gt;</span>
       &lt;AVERAGETIME&gt;<span class="v">0</span>&lt;/AVERAGETIME&gt;
 
       <span class="c">&lt;!-- version of the SHOUTcast server being used --&gt;</span>
@@ -287,15 +287,18 @@ allow the DNAS server to process the request correctly e.g. set sid=1 in all cas
       &lt;STREAM <span class="r">id=</span><span class="s">"1"</span>&gt;
         &lt;CURRENTLISTENERS&gt;<span class="v">0</span>&lt;/CURRENTLISTENERS&gt;
         &lt;PEAKLISTENERS&gt;<span class="v">0</span>&lt;/PEAKLISTENERS&gt;
-        <span class="c">&lt;!-- the maximum number of client connections potentially allowed which depends --&gt;</span>
+        <span class="c">&lt;!-- the maximum number of listener connections potentially allowed which depends --&gt;</span>
         <span class="c">&lt;!-- on the maxuser and streammaxuser config options and other stream configs --&gt;</span>
         &lt;MAXLISTENERS&gt;<span class="v">32</span>&lt;/MAXLISTENERS&gt;
         &lt;UNIQUELISTENERS&gt;<span class="v">0</span>&lt;/UNIQUELISTENERS&gt;
-        <span class="c">&lt;!-- average time (seconds) of any active client connections --&gt;</span>
+        <span class="c">&lt;!-- average time (seconds) of any active listener connections --&gt;</span>
         &lt;AVERAGETIME&gt;<span class="v">0</span>&lt;/AVERAGETIME&gt;
 
-        <span class="c">&lt;!-- these are some information about the stream as shown in clients, etc --&gt;</span>
+        <span class="c">&lt;!-- these are some information about the stream as shown in listener clients, etc --&gt;</span>
         &lt;SERVERGENRE&gt;<span class="v">Misc</span>&lt;/SERVERGENRE&gt;
+        <span class="c">&lt;!-- there can also be: SERVERGENRE2, SERVERGENRE3, SERVERGENRE4 and --&gt;</span>
+        <span class="c">&lt;!-- SERVERGENRE5 elements depending on how the stream has been setup --&gt;</span>
+
         &lt;SERVERURL&gt;<span class="v">http://my_website.com</span>&lt;/SERVERURL&gt;
         &lt;SERVERTITLE&gt;<span class="v">Test Server</span>&lt;/SERVERTITLE&gt;
 
@@ -304,21 +307,35 @@ allow the DNAS server to process the request correctly e.g. set sid=1 in all cas
         &lt;SONGTITLE&gt;<span class="v">The Current Song</span>&lt;/SONGTITLE&gt;
         &lt;NEXTTITLE&gt;<span class="v">The Next Song</span>&lt;/NEXTTITLE&gt;
 
-        <span class="c">&lt;!-- User ID of the source which typically comes from a SHOUTcast v2 source --&gt;</span>
-        <span class="c">&lt;!-- note: this can be present if a v1 source is in use due to metadata updates --&gt;</span>
+        <span class="c">&lt;!-- User ID of the source which typically comes from a SHOUTcast 2.x source --&gt;</span>
+        <span class="c">&lt;!-- note: this can be present if a 1.x source is in use due to metadata updates --&gt;</span>
         &lt;DJ&gt;<span class="v">DJ Funky</span>&lt;/DJ&gt;
 
         <span class="c">&lt;!-- cumulative total of any attempts to connect to the stream when it is active --&gt;</span>
         &lt;STREAMHITS&gt;<span class="v">0</span>&lt;/STREAMHITS&gt;
 
         <span class="c">&lt;!-- shows 1 if a source is connected and 0 if there is no source --&gt;</span>
-        <span class="c">&lt;!-- note: if there is no source then no client connections occur --&gt;</span>
+        <span class="c">&lt;!-- note: if there is no source then no listener connections occur --&gt;</span>
+        <span class="c">&lt;!--       unless a valid backupfile has been configured to be used --&gt;</span>
         &lt;STREAMSTATUS&gt;<span class="v">1</span>&lt;/STREAMSTATUS&gt;
 
         <span class="c">&lt;!-- shows 1 if a backup source is active instead of the main source --&gt;</span>
         <span class="c">&lt;!-- due to connection issues and 0 if the backup source is not used --&gt;</span>
-        <span class="c">&lt;!-- note: if there is no source then no client connections occur --&gt;</span>
+        <span class="c">&lt;!-- note: if there is no source then no listener connections occur --&gt;</span>
+        <span class="c">&lt;!--       unless a valid backupfile has been configured to be used --&gt;</span>
         &lt;BACKUPSTATUS&gt;<span class="v">0</span>&lt;/BACKUPSTATUS&gt;
+
+        <span class="c">&lt;!-- shows 1 if successfully listed and 0 if not or is private --&gt;</span>
+        &lt;STREAMLISTED&gt;<span class="v">1</span>&lt;/STREAMLISTED&gt;
+        <span class="c">&lt;!-- if there is an error being listed then the code is provided --&gt;</span>
+        <span class="c">&lt;!-- here and if there is no error then this is not provided --&gt;</span>
+        &lt;STREAMLISTEDERROR&gt;<span class="v">480</span>&lt;/STREAMLISTEDERROR&gt;
+
+        <span class="c">// these are only provided if a valid password is provided on the request</span>
+        <span class="c">// with information about the current source and backup (if set) provided</span>
+        &lt;STREAMSOURCE&gt;<span class="v">123.123.123.123</span>&lt;/STREAMSOURCE&gt;
+        <span class="c">// this is not provided if there is no backup source specified</span>
+        &lt;STREAMBACKUP&gt;<span class="v">my_backup_url:port</span>&lt;/STREAMBACKUP&gt;
 
         <span class="c">&lt;!-- time in seconds the stream has been running --&gt;</span>
         <span class="c">&lt;!-- this is not provided if there is no stream --&gt;</span>
@@ -354,13 +371,13 @@ allow the DNAS server to process the request correctly e.g. set sid=1 in all cas
     <span class="c">&lt;!-- is possible to calculate average bandwidth per unit of time --&gt;</span>
     &lt;TIME&gt;<span class="v">365</span>&lt;/TIME&gt;
 
-    <span class="c">&lt;!-- the total number of bytes sent to clients --&gt;</span>
+    <span class="c">&lt;!-- the total number of bytes sent to listener clients --&gt;</span>
     &lt;CLIENTSENT&gt;
       <span class="c">&lt;!-- the total number of bytes sent for this metric --&gt;</span>
       &lt;TOTAL&gt;<span class="v">0</span>&lt;/TOTAL&gt;
-      <span class="c">&lt;!-- followed by v2 --&gt;</span>
+      <span class="c">&lt;!-- followed by 2.x --&gt;</span>
       &lt;V2&gt;<span class="v">0</span>&lt;/V2&gt;
-      <span class="c">&lt;!-- and v1 specifics--&gt;</span>
+      <span class="c">&lt;!-- and 1.x specifics--&gt;</span>
       &lt;V1&gt;<span class="v">0</span>&lt;/V1&gt;
     &lt;/CLIENTSENT&gt;
 
@@ -368,9 +385,9 @@ allow the DNAS server to process the request correctly e.g. set sid=1 in all cas
     &lt;SOURCERECV&gt;
       <span class="c">&lt;!-- the total number of bytes received for this metric --&gt;</span>
       &lt;TOTAL&gt;<span class="v">4401110</span>&lt;/TOTAL&gt;
-      <span class="c">&lt;!-- followed by v2 --&gt;</span>
+      <span class="c">&lt;!-- followed by 2.x --&gt;</span>
       &lt;V2&gt;<span class="v">0</span>&lt;/V2&gt;
-      <span class="c">&lt;!-- and v1 specifics--&gt;</span>
+      <span class="c">&lt;!-- and 1.x specifics--&gt;</span>
       &lt;V1&gt;<span class="v">4401110</span>&lt;/V1&gt;
     &lt;/SOURCERECV&gt;
 
@@ -378,9 +395,9 @@ allow the DNAS server to process the request correctly e.g. set sid=1 in all cas
     &lt;SOURCESENT&gt;
       <span class="c">&lt;!-- the total number of bytes sent for this metric --&gt;</span>
       &lt;TOTAL&gt;<span class="v">20</span>&lt;/TOTAL&gt;
-      <span class="c">&lt;!-- followed by v2 --&gt;</span>
+      <span class="c">&lt;!-- followed by 2.x --&gt;</span>
       &lt;V2&gt;<span class="v">0</span>&lt;/V2&gt;
-      <span class="c">&lt;!-- and v1 specifics--&gt;</span>
+      <span class="c">&lt;!-- and 1.x specifics--&gt;</span>
       &lt;V1&gt;<span class="v">20</span>&lt;/V1&gt;
     &lt;/SOURCESENT&gt;
 
@@ -390,9 +407,9 @@ allow the DNAS server to process the request correctly e.g. set sid=1 in all cas
       &lt;TOTAL&gt;<span class="v">0</span>&lt;/TOTAL&gt;
       <span class="c">&lt;!-- bytes received during handshaking when determining the protocol --&gt;</span>
       &lt;MISC&gt;<span class="v">0</span>&lt;/MISC&gt;
-      <span class="c">&lt;!-- followed by v2 --&gt;</span>
+      <span class="c">&lt;!-- followed by 2.x --&gt;</span>
       &lt;V2&gt;<span class="v">0</span>&lt;/V2&gt;
-      <span class="c">&lt;!-- and v1 specifics--&gt;</span>
+      <span class="c">&lt;!-- and 1.x specifics--&gt;</span>
       &lt;V1&gt;<span class="v">0</span>&lt;/V1&gt;
     &lt;/RELAYRECV&gt;
 
@@ -415,6 +432,9 @@ allow the DNAS server to process the request correctly e.g. set sid=1 in all cas
       <span class="c">&lt;!-- usage relating to DNAS and Directory communications --&gt;</span>
       &lt;YPSENT&gt;<span class="v">0</span>&lt;/YPSENT&gt;
       &lt;YPRECV&gt;<span class="v">0</span>&lt;/YPRECV&gt;
+      <span class="c">&lt;!-- usage relating to adverts and listener client metrics --&gt;</span>
+      &lt;AUTH_METRICS&gt;<span class="v">0</span>&lt;/AUTH_METRICS&gt;
+      &lt;ADVERTS&gt;<span class="v">0</span>&lt;/ADVERTS&gt;
     &lt;/OTHER&gt;
   &lt;/SHOUTCASTSERVER&gt;</pre>
 <p><br></p>
@@ -463,11 +483,11 @@ allow the DNAS server to process the request correctly e.g. set sid=1 in all cas
 <tr><td><b>YP_MAINTENANCE</b></td><td>The Directory is down for maintenance so your stream will not be listed and will behave like it is private</td></tr>
 <tr><td><b>EMPTY_AUTHHASH</b></td><td>There is no authhash specified and the stream is not listed or allowing listeners to connect</td></tr>
 <tr><td><b>INVALID_AUTHHASH</b></td><td>The authhash is incorrectly specified and the stream is not listed or allowing listeners to connect</td></tr>
-</table></p>
+</table>
 <p>For more details on the error codes which may be returned by the Directory can be found <a href="http://wiki.shoutcast.com/wiki/SHOUTcast_DNAS_Server_2#YP_Server_Errors"><b>here</b></a>.</p>
 <p><br></p>
 
 <a name="7.html"></a><h2>2.11.&nbsp;7.html (Legacy) <a style="font-size:55%;" href="#">[top]</a></h2>
 <hr>
-<p>With v1 DNAS servers http://&lt;serverip&gt;:&lt;port&gt;/7.html could be used to get specific information about the current server instance for status checking and other uses as a limited set of data.<br><br>This is provided in the v2 DNAS server purely as a legacy response due to old tooling dependencies and where possible it is recommended to use the newer responses as they provide an equivalent response which provides extra information (without being locked to a fixed format) via the <b>admin.cgi?sid=#&mode=viewxml&page=1</b> (private) or <b>/stats?sid=#</b> (public) methods (<a href="#General_Server_Summary" title="">see section 2.2</a>).</p><p><br>The 7.html response provides the following values as a comma separated list (using the entry names in the equivalent responses):</p>
+<p>With 1.x DNAS servers http://&lt;serverip&gt;:&lt;port&gt;/7.html could be used to get specific information about the current server instance for status checking and other uses as a limited set of data.<br><br>This is provided in the 2.x DNAS server purely as a legacy response due to old tooling dependencies and where possible it is recommended to use the newer responses as they provide an equivalent response which provides extra information (without being locked to a fixed format) via the <b>admin.cgi?sid=#&amp;mode=viewxml&amp;page=1</b> (private) or <b>/stats?sid=#</b> (public) methods (<a href="#General_Server_Summary" title="">see section 2.2</a>).</p><p><br>The 7.html response provides the following values as a comma separated list (using the entry names in the equivalent responses):</p>
 <p style="padding-left:15px;"><b>currentlisteners , streamstatus , peaklisteners , maxlisteners , uniquelisteners , bitrate , songtitle</b></p>

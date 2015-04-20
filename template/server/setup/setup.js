@@ -198,8 +198,6 @@ var AdminPassword;
 var PortBase;
 var PublicServer;
 var MaxUser;
-var Authhash;
-var Email;
 
 function SetDefaults() {
 	LastPage = readCookie("LastPage");
@@ -220,8 +218,6 @@ function SetDefaults() {
 	PortBase=8000;SetObjectValueID("portbase",PortBase);
 	MaxUser=512;SetObjectValueID("maxuser",MaxUser);
 	PublicServer=0;SetObjectValueID("publicserver",PublicServer);
-	Authhash=1;SetObjectValueID("authhash",Authhash);
-	Email="";SetObjectValueID("email",Email);
 }
 
 var NumOfStreamsInput;
@@ -233,8 +229,6 @@ var AdminPasswordInput;
 var PortBaseInput;
 var MaxUserInput;
 var PublicServerSelect;
-var AuthhashCheckBox;
-var EmailInput;
 
 var EndPointPathInputArray=new Array(NumOfStreams);
 var EndPointMaxUserInputArray = new Array(NumOfStreams);
@@ -294,24 +288,6 @@ function onPasswordInputsChanged() {
 	SetObjCookie(AdminPasswordInput,"adminpassword");
 
 	$("continue1b").disabled = (!Password.length || !AdminPassword.length || Password==AdminPassword);
-}
-
-function isEmail(){
-	var regexp = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,61}[a-zA-Z0-9])?)*$/;
-	if(Email != ''){
-		return regexp.test(Email);
-	}
-	return false;
-}
-
-function onEmailUserInputChanged() {
-	Email=EmailInput.value;
-
-	var isok = isEmail();
-	EmailInput.style.borderColor = (!isok?"red":"");
-	SetObjCookie(EmailInput,"email");
-
-	$("continue1b").disabled = (!isok);
 }
 
 function validateEndPointObjectChanges() {
@@ -381,11 +357,6 @@ function onResetButtonClicked() {
 	window.location="setup";
 }
 
-function onAuthhashButtonClicked() {
-	Authhash=AuthhashCheckBox.checked;
-	SetObjCookie(AuthhashCheckBox);
-}
-
 function onConfigStreamsButtonClicked() {
 	ConfigStreams=ConfigStreamsCheckBox.checked;
 	SetObjCookie(ConfigStreamsCheckBox);
@@ -443,8 +414,6 @@ function DoUpdate(mode) {
 				case 2: output += "never"+NL; break;
 			}
 		}
-		output += encodeURIComponent("autoauthhash="+(Authhash?"1":"0"))+NL;
-		output += encodeURIComponent("email="+Email)+NL;
 		if(ConfigStreams && NumOfStreams > 0) {
 			output += encodeURIComponent("requirestreamconfigs=1")+NL;
 			for(var i=0;i<NumOfStreams;i++) {
@@ -479,10 +448,7 @@ function DoUpdate(mode) {
 
 		config += "<fieldset style=\"text-align:center;width:inherit;\"><legend class=\"titlespan\"><b>Directory Listing</b></legend><b>";
 		switch(PublicServer) {
-			case 0:
-				config += "Set by source";
-				if(Authhash) config += "</b><br><br>Automatic authhash generation enabled";
-			break;
+			case 0: config += "Set by source"; break;
 			case 1: config += "Listed (Public)"; break;
 			case 2: config += "Not listed (Private)"; break;
 		}
@@ -511,7 +477,7 @@ function DoUpdate(mode) {
 				if(epmu) stream += OutStr("Maximum Listeners: <b>",epmu,512);
 
 				var epsp=EndPointPathInputArray[i].value
-				if(epsp!="" && (!i ? (epsp!="/") : (epsp!="stream/"+(i+1)+"/"))) stream += "Client Stream Path: <b>"+epsp+"</b><br>";
+				if(epsp!="" && (!i ? (epsp!="/") : (epsp!="stream/"+(i+1)+"/"))) stream += "Listener Stream Path: <b>"+epsp+"</b><br>";
 
 				if(!stream) stream = "Server defaults will be used for this stream as no values were entered in stage 2. Click '<b>Back</b>' to amend this if required.";
 				config += stream+"</fieldset></td></tr>";
@@ -615,7 +581,7 @@ function MultiPointSpanUpdate() {
 		str+="</td></tr><tr><td class=\"ConfigTableDescTD\">";
 
 		var naid="EndPoint"+(rindex)+"PathInput";
-		str+="Client Stream Path</td><td><input size=\"36\" name=\""+naid+"\" id=\""+naid+"\"/><br/>";
+		str+="Listener Stream Path</td><td><input size=\"36\" name=\""+naid+"\" id=\""+naid+"\"/><br/>";
 		str+="</td></tr><tr><td class=\"ConfigTableDescTD\">";
 
 		var naid="EndPoint"+(rindex)+"AuthHashInput";
@@ -763,8 +729,6 @@ function DoInit() {
 	PublicServer = GetObjCookie(PublicServerSelect = register("publicserver",onPublicServerSelectChanged));
 	ConfigStreams = GetObjCookie(ConfigStreamsCheckBox = register("streams",onConfigStreamsButtonClicked));
 	NumOfStreams = GetObjCookie(NumOfStreamsInput = register("num_streams",onStreamsTotalChanged));
-	Authhash = GetObjCookie(AuthhashCheckBox = register("authhash",onAuthhashButtonClicked));
-	Email = GetObjCookie(EmailInput = register("email",onEmailUserInputChanged));
 
 	AETFC($("preview"),function(){});
 
@@ -783,7 +747,6 @@ function DoInit() {
 	onConfigStreamsButtonClicked();
 	onPublicServerSelectChanged();
 	onStreamsTotalChanged(1);
-	onEmailUserInputChanged();
 
 	DoHelpUpdate(null);
 }
@@ -795,8 +758,9 @@ function uht(t) {
 function DoSpanHighlight(Highlight, Obj) {
 	if(Highlight) {
 		Obj.style.fontWeight = "bold";
+		Obj.style.textDecoration = "underline";
 	} else {
-		Obj.style.fontWeight = "";
+		Obj.style.textDecoration = Obj.style.fontWeight = "";
 	}
 }
 

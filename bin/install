@@ -21,6 +21,10 @@ set_env_var 'OPENSHIFT_SCS_PID' "$scsfolder/stream.pid" $env_dir
 
 set_info 'SHOUTCAST_CONF' "$scsfolder/shoutconfig.conf"
 set_info 'SHOUTCAST_DIR' "$scsfolder"
+set_info 'SHOUTCAST_ADMIN_PASS' "$adminpassword"
+set_info 'SHOUTCAST_USER_PASS' "$userpassword"
+set_info 'SHOUTCAST_STREAM_PASS' "$streampass"
+set_info 'SHOUTCAST_ADMIN_STREAM_PASS' "$adminstreampass"
 set_info 'SHOUTCAST_SERVER' "$scsfolder/sc_serv"
 
 client_result ""
